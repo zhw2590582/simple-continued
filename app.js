@@ -1,49 +1,88 @@
 const AV = require('./libs/av-weapp-min.js');
 
+// leancloud初始化
 AV.init({
   appId: 'M4ejaG8fuUSuF8zrcy9Mjv4j-gzGzoHsz',
   appKey: '8QBzNJmYuhqwN4WzSnk3syy4',
 });
 
-//app.js
 App({
+  // 小程序初始化并登录
   onLaunch: function (options) {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    this.userLogin();
+  },
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
-    // 获取用户信息
+  // 小程序启动
+  onShow: function ({ path, query }) {
+    console.log(path, query)
+  },
+
+  // 用户登录
+  userLogin: function () {
+    AV.User.loginWithWeapp().then(user => {
+      this.globalData.userInfo = user.toJSON();
+      this.getUserSetting();
+    }).catch(console.error);
+  },
+
+  // 获取用户权限
+  getUserSetting: function () {
     wx.getSetting({
       success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
+        let that = this;
+        if (!res.authSetting['scope.userInfo']) {
+          wx.authorize({
+            scope: 'scope.userInfo',
+            success() {
+              wx.getUserInfo({
+                success: res => {
+                  that.getUserInfo();
+                },
+                fail() {
+                  that.userInfoReject();
+                }
+              })
+            },
+            fail() {
+              that.userInfoReject();
             }
           })
+        } else {
+          that.getUserInfo();
         }
       }
-    })
+    });
   },
-  onShow: function (options) {
-    console.log(options)
+
+  // 获取用户信息
+  getUserInfo: function (res) {
+    const user = AV.User.current();
+    wx.getUserInfo({
+      success: ({ userInfo }) => {
+        user.set(userInfo).save().then(user => {
+          this.globalData.userInfo = user.toJSON();
+          this.globalData.openId = this.globalData.userInfo.authData.lc_weapp.openid;
+          this.userInfoReady(this.globalData.userInfo);
+        }).catch(console.error);
+      }
+    });
   },
+
+  // 用户信息准备就绪
+  userInfoReady: function (res) {
+    console.log(res);
+  },
+
+  // 用户拒绝授权
+  userInfoReject: function () {
+    wx.redirectTo({
+      url: '/pages/auth/auth'
+    });
+  },
+
+  // 全局信息
   globalData: {
-    userInfo: null
+    userInfo: null,
+    openId: null
   }
 })

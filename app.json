@@ -5,7 +5,7 @@
     "pages/list/list",
     "pages/story/story",
     "pages/profile/profile",
-    "pages/guide/guide"
+    "pages/auth/auth"
   ],
   "window":{
     "enablePullDownRefresh": true,
