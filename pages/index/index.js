@@ -13,7 +13,7 @@ Page({
   },
 
   /**
-   * ================================== 自定义事件 ==================================
+   * ================================== 事件绑定 ==================================
    */
 
   // 事件处理
@@ -30,9 +30,25 @@ Page({
     util.pageInit(this, app, query);
   },
 
+  // 渲染完成
+  onReady(){
+    console.log(this)
+    console.log("onReady")
+  },
+
   // 页面展示
   onShow(){
     console.log("onShow")
+  },
+
+  // 页面隐藏
+  onHide(){
+    console.log("onHide")
+  },
+
+  // 页面卸载 
+  onUnload(){
+    console.log("onUnload")
   },
 
   // 下拉动作
@@ -45,6 +61,9 @@ Page({
   },
 
   onShareAppMessage(){
-    console.log("onShareAppMessage")
+    return {
+      title: '简续',
+      path: '/pages/index/index?openId=' + app.globalData.openId
+    }
   }
 })
