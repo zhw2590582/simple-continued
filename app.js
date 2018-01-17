@@ -1,6 +1,13 @@
+const AV = require('./libs/av-weapp-min.js');
+
+AV.init({
+  appId: 'M4ejaG8fuUSuF8zrcy9Mjv4j-gzGzoHsz',
+  appKey: '8QBzNJmYuhqwN4WzSnk3syy4',
+});
+
 //app.js
 App({
-  onLaunch: function () {
+  onLaunch: function (options) {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -32,6 +39,9 @@ App({
         }
       }
     })
+  },
+  onShow: function (options) {
+    console.log(options)
   },
   globalData: {
     userInfo: null
