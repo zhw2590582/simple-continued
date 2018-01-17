@@ -1,8 +1,5 @@
-// 初始化页面必要数据：异步用户信息、url参数
-const pageInit = function (ctx, app, query){
-  ctx.setData({
-    query: query
-  });
+// 异步获取用户信息
+exports.pageInit = (ctx, app) => {
   if (app.globalData.userInfo) {
     ctx.setData({
       userInfo: app.globalData.userInfo
@@ -16,6 +13,9 @@ const pageInit = function (ctx, app, query){
   }
 }
 
-module.exports = {
-  pageInit
-}
+// 获取当前页url参数
+exports.getOptions = () => {
+  let pages = getCurrentPages();
+  let currentPage = pages[pages.length - 1];
+  return currentPage.options;
+};

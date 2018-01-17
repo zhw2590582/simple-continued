@@ -8,8 +8,7 @@ Page({
    */
 
   data: {
-    userInfo: null,
-    query: {}
+    userInfo: null
   },
 
   /**
@@ -26,19 +25,19 @@ Page({
    */
 
   // 页面加载
-  onLoad(query) {
-    util.pageInit(this, app, query);
+  onLoad(options) {
+    util.pageInit(this, app);
+  },
+
+  // 页面展示
+  onShow() {
+    let options = util.getOptions();
+    console.log("onShow")
   },
 
   // 渲染完成
   onReady(){
-    console.log(this)
     console.log("onReady")
-  },
-
-  // 页面展示
-  onShow(){
-    console.log("onShow")
   },
 
   // 页面隐藏
@@ -56,10 +55,12 @@ Page({
     console.log("onPullDownRefresh")
   },
 
+  // 上拉触底
   onReachBottom(){
     console.log("onReachBottom")
   },
 
+  // 转发
   onShareAppMessage(){
     return {
       title: '简续',
