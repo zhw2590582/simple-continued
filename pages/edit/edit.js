@@ -1,15 +1,27 @@
-//logs.js
-const util = require('../../utils/util.js')
+const API = require('../../api/index.js');
+const util = require('../../utils/util.js');
+const app = getApp();
 
 Page({
   data: {
-    logs: []
+
   },
-  onLoad: function () {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(log => {
-        return util.formatTime(new Date(log))
-      })
-    })
+  onLoad() {
+    API.delStory({
+      id: '5a5f034a0b61600044dc87b7'
+    }, (err, data) => {
+      console.log(data)
+    });
+  },
+  onShow(){
+    let options = util.getOptions();
+    if (options.id) {
+      wx.setNavigationBarTitle({
+        title: '编辑故事'
+      });
+    }
+  },
+  onReady() {
+
   }
 })
