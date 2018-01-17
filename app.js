@@ -8,17 +8,17 @@ AV.init({
 
 App({
   // 小程序初始化并登录
-  onLaunch: function (options) {
+  onLaunch(options) {
     this.userLogin();
   },
 
   // 小程序启动
-  onShow: function ({ path, query }) {
+  onShow({ path, query }) {
     console.log(path, query)
   },
 
   // 用户登录
-  userLogin: function () {
+  userLogin() {
     AV.User.loginWithWeapp().then(user => {
       this.globalData.userInfo = user.toJSON();
       this.getUserSetting();
@@ -26,7 +26,7 @@ App({
   },
 
   // 获取用户权限
-  getUserSetting: function () {
+  getUserSetting() {
     wx.getSetting({
       success: res => {
         let that = this;
@@ -55,7 +55,7 @@ App({
   },
 
   // 获取用户信息
-  getUserInfo: function (res) {
+  getUserInfo(res) {
     const user = AV.User.current();
     wx.getUserInfo({
       success: ({ userInfo }) => {
@@ -69,12 +69,12 @@ App({
   },
 
   // 用户信息准备就绪
-  userInfoReady: function (res) {
+  userInfoReady(res) {
     console.log(res);
   },
 
   // 用户拒绝授权
-  userInfoReject: function () {
+  userInfoReject() {
     wx.redirectTo({
       url: '/pages/auth/auth'
     });

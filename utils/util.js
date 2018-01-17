@@ -1,19 +1,21 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
+// 初始化页面必要数据：异步用户信息、url参数
+const pageInit = function (ctx, app, query){
+  ctx.setData({
+    query: query
+  });
+  if (app.globalData.userInfo) {
+    ctx.setData({
+      userInfo: app.globalData.userInfo
+    });
+  } else {
+    app.userInfoReady = userInfo => {
+      ctx.setData({
+        userInfo: userInfo
+      });
+    }
+  }
 }
 
 module.exports = {
-  formatTime: formatTime
+  pageInit
 }
