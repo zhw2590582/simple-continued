@@ -24,20 +24,20 @@ Page(extend({}, Toast, {
     auditModes: config.auditModes
   },
 
-  // 数据变化
-  _handleZanFieldChange(e) {
+  // 数据变化 -- 光标有bug
+  _handleZanFieldChange(e) {},
+
+  // 获得焦点
+  _handleZanFieldFocus(e) {},
+
+  // 失去焦点
+  _handleZanFieldBlur(e) {
     let name = e.target.dataset.name;
     let value = e.detail.value;
     this.setData({
       [name]: value
     });
   },
-
-  // 失去焦点
-  _handleZanFieldBlur({ componentId, detail }) { },
-
-  // 获得焦点
-  _handleZanFieldFocus({ componentId, detail }) { },
 
   // 删除规则
   delRule(e) {
