@@ -1,3 +1,28 @@
+<import src="/libs/zanui/field/index.wxml" />
 <view class="container">
-  00
+  <form bindsubmit="formSubmit">
+    <view class="input-item">
+      <view class="zan-panel-title">标题：</view>
+      <view class="zan-panel">
+        {{storyTitle}}
+        <template is="zan-field" data="{{ name: 'storyTitle', maxlength: 20, placeholder: '20字以内的标题', value: storyTitle }}"></template>
+      </view>
+    </view>
+    <view class="input-item">
+      <view class="zan-panel-title">故事：</view>
+      <view class="zan-panel">
+        <template is="zan-field" data="{{ name: 'content', maxlength: 200, placeholder: '200字以内的故事开头', type: 'textarea', value: content }}"></template>
+      </view>
+    </view>
+    <view class="input-item">
+      <view class="zan-panel-title">规则：</view>
+      <view class="zan-panel">
+        规则：
+      </view>
+    </view>
+    <view class="zan-btns">
+      <button class="zan-btn zan-btn--primary" formType="submit">提交信息</button>
+      <button class="zan-btn" formType="reset">重置数据</button>
+    </view>
+  </form>
 </view>
