@@ -120,6 +120,27 @@ exports.like = (args, callback) => {
 }
 
 /**
+ * 故事转发
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.share = (args, callback) => {
+  const story = AV.Object.createWithoutData('Story', args.id);
+  story.save().then(data => {
+    data.increment('share', 1);
+    return data.save(null, {
+      fetchWhenSave: true
+    });
+  }).then(data => {
+    callback && callback(null, data.toJSON());
+  }, error => {
+    callback && callback(error);
+  });
+}
+
+/**
  * 分页查询故事集: 标题、分类和标签选其一查询
  *
  * @param {Object} args

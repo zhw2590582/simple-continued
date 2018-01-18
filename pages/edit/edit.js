@@ -10,11 +10,6 @@ Page({
 
   },
   onShow(){
-    Story.query({
-      page: 1
-    }, (err, data, count) => {
-      console.log(data, count)
-    })
     let options = util.getOptions();
     if (options.id) {
       wx.setNavigationBarTitle({
