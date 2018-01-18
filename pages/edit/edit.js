@@ -77,7 +77,7 @@ Page(extend({}, Toast, {
   // 新增标签
   addTag() {
     let tags = this.data.tags;
-    if (this.data.tag !== '' && this.data.tag.length < 5) {
+    if (this.data.tag !== '' && this.data.tag.length <= 5) {
       tags.push(this.data.tag);
       this.setData({
         tags: tags,
