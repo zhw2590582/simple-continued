@@ -17,9 +17,11 @@ Page(extend({}, Toast, {
     wordLimit: 200,
     catalogue: '',
     catalogueIndex: 0,
-    catalogues: config.catalogues,
-    tags: ["标签01", "标签02", "标签03"],
-    auditMode: 1
+    catalogues: config.catalogues.map(item => item.name),
+    tag: '',
+    tags: [],
+    auditMode: '1',
+    auditModes: config.auditModes
   },
 
   // 数据变化
@@ -45,6 +47,7 @@ Page(extend({}, Toast, {
     this.setData({
       rules: rules
     });
+    this.showZanToast('删除成功！');
   },
 
   // 添加规则
@@ -63,11 +66,45 @@ Page(extend({}, Toast, {
   },
 
   // 分类选择
-  bindPickerChange(e){
+  bindPickerChange(e) {
     let index = e.detail.value;
     this.setData({
       catalogue: config.catalogues[index],
       catalogueIndex: index
+    });
+  },
+
+  // 新增标签
+  addTag() {
+    let tags = this.data.tags;
+    if (this.data.tag !== '' && this.data.tag.length < 5) {
+      tags.push(this.data.tag);
+      this.setData({
+        tags: tags,
+        tag: ''
+      });
+      this.showZanToast('添加成功！');
+    } else {
+      this.showZanToast('请输入5个字以内的标签！');
+    }
+  },
+
+  // 删除标签
+  delTag(e) {
+    let index = e.target.dataset.index;
+    let tags = this.data.tags;
+    tags.splice(index, 1);
+    this.setData({
+      tags: tags
+    });
+    this.showZanToast('删除成功！');
+  },
+
+  // 审核模式
+  _handleZanSelectChange(e) {
+    let value = e.detail.value;
+    this.setData({
+      auditMode: value
     });
   },
 

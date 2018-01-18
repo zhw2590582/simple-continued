@@ -1,3 +1,18 @@
 .rules{
   margin-bottom: 10px;
 }
+
+.notice{
+  margin-top: 0
+}
+
+.tip{
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: 25px 0 0;
+  font-size: 12px;
+  padding-bottom: 2px;
+  color: #999;
+  border-bottom: 1px solid #ccc;
+}

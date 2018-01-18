@@ -5,6 +5,7 @@
   box-sizing: border-box;
   padding: 0;
 }
+
 .container::before {
   position: fixed;
   top: 0;
@@ -14,4 +15,8 @@
   height: 1rpx;
   background-color: #e2e2e2;
   z-index: 5;
+}
+
+.zan-tag + .zan-tag {
+  margin-left: 10px;
 }

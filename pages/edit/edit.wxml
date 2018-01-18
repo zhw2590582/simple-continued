@@ -1,6 +1,12 @@
 <import src="/libs/zanui/toast/index.wxml" />
 <import src="/libs/zanui/field/index.wxml" />
+<import src="/libs/zanui/select/index.wxml" />
+<import src="/libs/zanui/noticebar/index.wxml" />
+
 <view class="container">
+  <view class="zan-panel notice">
+    <template is="zan-noticebar" data="{{ text: '具体玩法说明，请点击这里。' }}"></template>
+  </view>
   <form bindsubmit="formSubmit">
     <view class="input-item">
       <view class="zan-panel-title">标题：</view>
@@ -14,10 +20,11 @@
         <template is="zan-field" data="{{ name: 'content', maxlength: 500, placeholder: '5 ~ 500字以内的故事开头', type: 'textarea', value: content }}"></template>
       </view>
     </view>
+    <view class="tip">以下全部为选填</view>
     <view class="input-item">
       <view class="zan-panel-title">规则(最多五条)：</view>
       <view class="zan-panel rules" wx:if="{{rules.length > 0}}">
-        <view class="zan-cell" wx:for="{{rules}}" wx:key="index">
+        <view class="zan-cell" wx:for="{{rules}}" wx:key="{{index}}">
           <view class="zan-cell__bd">
             <view class="zan-cell__text">规则{{index + 1}}：</view>
             <view class="zan-cell__desc">{{item}}</view>
@@ -52,15 +59,25 @@
       </view>
     </view>
     <view class="input-item">
-      <view class="zan-panel-title">标签：</view>
-      <view class="zan-panel">
-        标签
+      <view class="zan-panel-title">标签(最多五个，长按删除)：</view>
+      <view class="zan-panel" wx:if="{{tags.length > 0}}">
+        <view class="zan-cell zan-cell--last-child">
+          <view class="zan-tag zan-tag--warn zan-tag--plain" wx:for="{{tags}}" wx:key="{{index}}" data-index="{{index}}" bindlongpress="delTag">{{item}}</view>
+        </view>
+      </view>
+      <view class="zan-panel" wx:if="{{tags.length < 5}}">
+        <view class="zan-cell zan-field">
+          <input type="text" data-name="tag" value="{{tag}}" bindinput="_handleZanFieldChange" maxlength="5" placeholder="5个字以内的标签" class="zan-field__input zan-cell__bd" />
+          <view class="zan-cell__ft">
+            <button class="zan-btn zan-btn--mini zan-btn--warn" bindtap="addTag">添加</button>
+          </view>
+        </view>
       </view>
     </view>
     <view class="input-item">
       <view class="zan-panel-title">审核模式：</view>
       <view class="zan-panel">
-        审核模式
+        <template is="zan-select" data="{{ items: auditModes, checkedValue: auditMode, componentId: 'auditMode' }}"></template>
       </view>
     </view>
     <view class="zan-btns">
