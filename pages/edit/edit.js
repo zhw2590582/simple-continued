@@ -1,6 +1,7 @@
 const { Toast, extend } = require('../../libs/zanui/index.js');
-const Story = require('../../api/Story.js');
+const Story = require('../../api/story.js');
 const util = require('../../utils/util.js');
+const config = require('../../config/index.js');
 const app = getApp();
 
 // this.showZanToast('toast的内容');
@@ -14,7 +15,9 @@ Page(extend({}, Toast, {
     rule: '',
     rules: [],
     wordLimit: 200,
-    catalogue: "catalogue",
+    catalogue: '',
+    catalogueIndex: 0,
+    catalogues: config.catalogues,
     tags: ["标签01", "标签02", "标签03"],
     auditMode: 1
   },
@@ -57,6 +60,15 @@ Page(extend({}, Toast, {
     } else {
       this.showZanToast('请输入至少5个字的规则！');
     }
+  },
+
+  // 分类选择
+  bindPickerChange(e){
+    let index = e.detail.value;
+    this.setData({
+      catalogue: config.catalogues[index],
+      catalogueIndex: index
+    });
   },
 
   // 提交表单
