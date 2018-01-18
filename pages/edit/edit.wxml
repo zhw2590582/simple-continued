@@ -16,7 +16,7 @@
     </view>
     <view class="input-item">
       <view class="zan-panel-title">规则 (选填，最多五条)</view>
-      <view class="zan-panel input-rule">
+      <view class="zan-panel rules" wx:if="{{rules.length > 0}}">
         <view class="zan-cell" wx:for="{{rules}}" wx:key="index">
           <view class="zan-cell__bd">
             <view class="zan-cell__text">规则{{index + 1}}：</view>
@@ -25,11 +25,19 @@
           <view class="zan-cell__ft zan-c-red" data-index="{{index}}" bindtap="delRule">删除</view>
         </view>
       </view>
-      <view class="zan-cell zan-field zan-panel" wx:if="{{rules.length < 5}}">
-        <input type="text" data-name="rule" value="{{rule}}" bindinput="_handleZanFieldChange" maxlength="50" placeholder="5 ~ 50字以内的回合规则" class="zan-field__input zan-cell__bd" />
-        <view class="zan-cell__ft">
-          <button class="zan-btn zan-btn--mini zan-btn--warn" bindtap="addRule">添加</button>
+      <view class="zan-panel" wx:if="{{rules.length < 5}}">
+        <view class="zan-cell zan-field">
+          <input type="text" data-name="rule" value="{{rule}}" bindinput="_handleZanFieldChange" maxlength="50" placeholder="5 ~ 50字以内的回合规则" class="zan-field__input zan-cell__bd" />
+          <view class="zan-cell__ft">
+            <button class="zan-btn zan-btn--mini zan-btn--warn" bindtap="addRule">添加</button>
+          </view>
         </view>
+      </view>
+    </view>
+    <view class="input-item">
+      <view class="zan-panel-title">回合字数 (选填)</view>
+      <view class="zan-panel">
+        <template is="zan-field" data="{{ name: 'content', maxlength: 500, placeholder: '500字以内的故事开头', type: 'textarea', value: content }}"></template>
       </view>
     </view>
     <view class="zan-btns">

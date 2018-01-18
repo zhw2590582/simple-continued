@@ -1,7 +1,3 @@
-.input-item{
-  
-}
-
-.input-rule{
+.rules{
   margin-bottom: 10px;
 }
