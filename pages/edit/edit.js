@@ -1,4 +1,4 @@
-const API = require('../../api/index.js');
+const Story = require('../../api/Story.js');
 const util = require('../../utils/util.js');
 const app = getApp();
 
@@ -7,13 +7,14 @@ Page({
 
   },
   onLoad() {
-    API.delStory({
-      id: '5a5f034a0b61600044dc87b7'
-    }, (err, data) => {
-      console.log(data)
-    });
+
   },
   onShow(){
+    Story.query({
+      page: 1
+    }, (err, data, count) => {
+      console.log(data, count)
+    })
     let options = util.getOptions();
     if (options.id) {
       wx.setNavigationBarTitle({
