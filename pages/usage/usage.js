@@ -5,11 +5,5 @@ const config = require('../../config/index.js');
 const app = getApp();
 
 Page(extend({}, Toast, {
-  data: {
-    userInfo: null
-  },
-  onLoad(options) {
-    util.pageInit(this, app);
-  },
   
 }));

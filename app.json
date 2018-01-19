@@ -6,6 +6,9 @@
     "pages/message/message",
     "pages/story/story",
     "pages/profile/profile",
+    "pages/statistics/statistics",
+    "pages/about/about",
+    "pages/usage/usage",
     "pages/auth/auth"
   ],
   "window": {
