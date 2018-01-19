@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/edit/edit",
+    "pages/creat/creat",
     "pages/list/list",
     "pages/story/story",
     "pages/profile/profile",
@@ -32,13 +33,13 @@
       {
         "iconPath": "assets/tabBar-edit.png",
         "selectedIconPath": "assets/tabBar-edit-selected.png",
-        "pagePath": "pages/edit/edit",
+        "pagePath": "pages/creat/creat",
         "text": "创建"
       },
       {
         "iconPath": "assets/tabBar-message.png",
         "selectedIconPath": "assets/tabBar-message-selected.png",
-        "pagePath": "pages/edit/edit",
+        "pagePath": "pages/creat/creat",
         "text": "消息"
       },
       {

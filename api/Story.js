@@ -14,6 +14,8 @@ exports.creat = (args, callback) => {
   Object.keys(args).forEach(item => {
     story.set(item, args[item]);
   });
+  const owner = AV.Object.createWithoutData('_User', args.ownerId);
+  story.set('owner', owner);
   story.save().then(data => {
     callback && callback(null, data.toJSON());
   }, error => {

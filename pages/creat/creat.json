@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "编辑故事",
+  "navigationBarTitleText": "创建故事",
   "usingComponents": {
     "component-base": "../../component/base/base"
   }

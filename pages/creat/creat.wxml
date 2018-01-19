@@ -80,7 +80,7 @@
     </view>
   </view>
   <view class="zan-btns">
-    <button class="zan-btn zan-btn--warn" bindtap="submit">更新故事</button>
+    <button class="zan-btn zan-btn--warn" bindtap="submit">发布故事</button>
   </view>
 </view>
 <template is="zan-toast" data="{{ zanToast }}"></template>

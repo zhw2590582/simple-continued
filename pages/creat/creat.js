@@ -15,8 +15,7 @@ Page(extend({}, Toast, {
     rule: '',
     rules: [],
     wordLimit: 200,
-    catalogue: '',
-    catalogueIndex: 0,
+    catalogue: 0,
     catalogues: config.catalogues.map(item => item.name),
     tag: '',
     tags: [],
@@ -120,61 +119,25 @@ Page(extend({}, Toast, {
       }
 
       let storyData = {
-        id: this.data.id,
         ownerId: app.globalData.userInfo.objectId,
         storyTitle: this.data.storyTitle,
         content: this.data.content,
         rules: this.data.rules,
         wordLimit: Number.parseInt(this.data.wordLimit),
-        catalogue: this.data.catalogue,
+        catalogue: Number.parseInt(this.data.catalogue),
         tags: this.data.tags,
         auditMode: Number.parseInt(this.data.auditMode)
       }
 
-      story.updata(storyData, (err, data) => {
+      story.creat(storyData, (err, data) => {
         if (err) {
-          this.showZanToast('更新失败！');
+          this.showZanToast('创建失败！');
           util.errHandle(err);
         } else {
-          this.showZanToast('更新成功！');
+          this.showZanToast('创建成功！');
+          console.log(data.objectId)
         }
       });
     }, 10);
-  },
-
-  // 显示
-  onShow() {
-    let options = util.getOptions();
-    this.setData({
-      id: options.id,
-      edit: true
-    });
-    console.log(options.id)
-    story.get({
-      id: options.id
-    }, (err, data) => {
-      if (err){
-        this.showZanToast('打开错误， 请重新打开！');
-        util.errHandle(err);
-      } else {
-        if (!data.ownerId){
-          this.showZanToast('获取错误，请重新打开！');
-          setTimeout(() => {
-            wx.navigateBack({ delta: 1 });
-          }, 1000);
-        } else {
-          this.setData({
-            ownerId: data.ownerId,
-            storyTitle: data.storyTitle,
-            content: data.content,
-            rules: data.rules,
-            wordLimit: data.wordLimit,
-            catalogue: String(data.catalogue),
-            tags: data.tags,
-            auditMode: String(data.auditMode)
-          });
-        }
-      }
-    });
   }
 }));
