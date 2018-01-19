@@ -1,5 +1,6 @@
 const AV = require('../../libs/av-weapp-min.js');
 const util = require('../../utils/util.js');
+const profile = require('../../api/profile.js');
 const app = getApp();
 
 Page({
@@ -27,6 +28,7 @@ Page({
   // 页面加载
   onLoad(options) {
     util.pageInit(this, app);
+    options.id && profile.openByShare({ id: options.id });
   },
 
   // 页面展示
@@ -64,7 +66,7 @@ Page({
   onShareAppMessage(){
     return {
       title: '用你简洁的文字来续写故事吧',
-      path: '/pages/index/index?openId=' + app.globalData.openId
+      path: '/pages/index/index?id=' + app.globalData.userInfo.objectId
     }
   }
 })

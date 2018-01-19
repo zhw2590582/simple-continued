@@ -19,7 +19,7 @@
       <template is="zan-field" data="{{ name: 'content', maxlength: 500, placeholder: '500字以内的故事开头', type: 'textarea', value: content }}"></template>
     </view>
   </view>
-  <view class="tip">以下全部为选填</view>
+  <view class="tip">* 以下选项全为选填 *</view>
   <view class="input-item">
     <view class="zan-panel-title">规则(最多五条)：</view>
     <view class="zan-panel rules" wx:if="{{rules.length > 0}}">
