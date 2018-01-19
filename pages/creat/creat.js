@@ -52,6 +52,10 @@ Page(extend({}, Toast, {
   addRule() {
     let rules = this.data.rules;
     if (this.data.rule !== '' && this.data.rule.length >= 5) {
+      if (rules.includes(this.data.rule)) {
+        this.showZanToast('规则不能重复！');
+        return;
+      }
       rules.push(this.data.rule);
       this.setData({
         rules: rules,
@@ -75,6 +79,10 @@ Page(extend({}, Toast, {
   addTag() {
     let tags = this.data.tags;
     if (this.data.tag !== '' && this.data.tag.length <= 5) {
+      if (tags.includes(this.data.tag)) {
+        this.showZanToast('标签不能重复！');
+        return;
+      }
       tags.push(this.data.tag);
       this.setData({
         tags: tags,
