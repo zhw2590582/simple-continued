@@ -68,10 +68,6 @@ exports.updata = (args, callback) => {
 
 exports.del = (args, callback) => {
   const story = AV.Object.createWithoutData('Story', args.id);
-  delete args.id;
-  Object.keys(args).forEach(item => {
-    story.set(item, args[item]);
-  });
   story.destroy().then(data => {
     callback && callback(null, data.toJSON());
   }, error => {

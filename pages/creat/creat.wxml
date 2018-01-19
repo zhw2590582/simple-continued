@@ -41,9 +41,15 @@
     </view>
   </view>
   <view class="input-item">
-    <view class="zan-panel-title">回合最大字数：</view>
+    <view class="zan-panel-title">回合总数：</view>
     <view class="zan-panel">
-      <template is="zan-field" data="{{ name: 'wordLimit',inputType: 'number', maxlength: 5, placeholder: '1000字以内的回合字数', value: wordLimit }}"></template>
+      <template is="zan-field" data="{{ name: 'roundLimit',inputType: 'number', maxlength: 4, placeholder: '1000以内的回合数', value: roundLimit }}"></template>
+    </view>
+  </view>
+  <view class="input-item">
+    <view class="zan-panel-title">每回合字数：</view>
+    <view class="zan-panel">
+      <template is="zan-field" data="{{ name: 'wordLimit',inputType: 'number', maxlength: 4, placeholder: '1000字以内的回合字数', value: wordLimit }}"></template>
     </view>
   </view>
   <view class="input-item">
