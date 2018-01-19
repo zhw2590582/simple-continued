@@ -2,7 +2,7 @@ const AV = require('../libs/av-weapp-min.js');
 const config = require('../config/index.js');
 
 /**
- * 获取
+ * 刷新用户信息
  *
  * @param {Object} args
  * @param {Function} callback
