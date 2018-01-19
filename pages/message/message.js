@@ -5,5 +5,5 @@ const config = require('../../config/index.js');
 const app = getApp();
 
 Page(extend({}, Toast, {
-
+  
 }));

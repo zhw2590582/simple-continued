@@ -1,6 +1,4 @@
 {
-  "navigationBarTitleText": "编辑故事",
-  "usingComponents": {
-    "component-base": "../../component/base/base"
-  }
+  "navigationBarTitleText": "更新故事",
+  "enablePullDownRefresh": false
 }

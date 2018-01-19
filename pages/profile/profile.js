@@ -1,15 +1,9 @@
-//logs.js
-const util = require('../../utils/util.js')
+const { Toast, extend } = require('../../libs/zanui/index.js');
+const story = require('../../api/story.js');
+const util = require('../../utils/util.js');
+const config = require('../../config/index.js');
+const app = getApp();
 
-Page({
-  data: {
-    logs: []
-  },
-  onLoad: function () {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(log => {
-        return util.formatTime(new Date(log))
-      })
-    })
-  }
-})
+Page(extend({}, Toast, {
+
+}));

@@ -2,7 +2,6 @@ const AV = require('../../libs/av-weapp-min.js');
 const util = require('../../utils/util.js');
 const app = getApp();
 
-
 Page({
   /**
    * ================================== 响应数据 ==================================
@@ -64,7 +63,7 @@ Page({
   // 转发
   onShareAppMessage(){
     return {
-      title: '简续',
+      title: '用你简洁的文字来续写故事吧',
       path: '/pages/index/index?openId=' + app.globalData.openId
     }
   }

@@ -4,8 +4,6 @@ const util = require('../../utils/util.js');
 const config = require('../../config/index.js');
 const app = getApp();
 
-// this.showZanToast('toast的内容');
-
 Page(extend({}, Toast, {
   data: {
     id: '',
@@ -149,7 +147,6 @@ Page(extend({}, Toast, {
       id: options.id,
       edit: true
     });
-    console.log(options.id)
     story.get({
       id: options.id
     }, (err, data) => {

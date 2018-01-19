@@ -5,7 +5,7 @@
 
 <view class="container">
   <view class="zan-panel notice">
-    <template is="zan-noticebar" data="{{ text: '具体玩法说明，请点击这里。' }}"></template>
+    <template is="zan-noticebar" data="{{ text: '更多玩法说明，请点击这里。' }}"></template>
   </view>
   <view class="input-item">
     <view class="zan-panel-title">标题：</view>

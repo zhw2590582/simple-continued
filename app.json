@@ -3,7 +3,7 @@
     "pages/index/index",
     "pages/edit/edit",
     "pages/creat/creat",
-    "pages/list/list",
+    "pages/message/message",
     "pages/story/story",
     "pages/profile/profile",
     "pages/auth/auth"
@@ -28,7 +28,7 @@
         "iconPath": "assets/tabBar-continue.png",
         "selectedIconPath": "assets/tabBar-continue-selected.png",
         "pagePath": "pages/index/index",
-        "text": "待续"
+        "text": "简续"
       },
       {
         "iconPath": "assets/tabBar-edit.png",
@@ -39,7 +39,7 @@
       {
         "iconPath": "assets/tabBar-message.png",
         "selectedIconPath": "assets/tabBar-message-selected.png",
-        "pagePath": "pages/creat/creat",
+        "pagePath": "pages/message/message",
         "text": "消息"
       },
       {
