@@ -32,6 +32,11 @@ Page(extend({}, Toast, Tab, {
     });
   },
 
+  operate(e){
+    let detail = e.detail;
+    console.log(detail)
+  },
+
   getData({ refresh }){
     story.queryType({
       type: this.data.tab.selectedId,

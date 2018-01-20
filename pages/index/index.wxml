@@ -3,13 +3,13 @@
 <view class="container page-index">
   <template is="zan-tab" data="{{ ...tab }}"></template>
   <view wx:if="{{tab.selectedId === 'popular'}}">
-    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}" bind:operate="operate"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'latest'}}">
-    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}" bind:operate="operate"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'over'}}">
-    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}" bind:operate="operate"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'discover'}}">
     

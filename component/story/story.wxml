@@ -4,7 +4,7 @@
       <image class="avatar" src="{{item.owner.avatarUrl}}"></image>
       <text class="nickname zan-font-14 zan-c-gray-dark">{{item.owner.nickName}}</text>
     </view>
-    <text class="more zan-font-16 zan-c-gray-dark">···</text>
+    <text class="more zan-font-16 zan-c-gray-dark" bindtap="operate">···</text>
   </view>
   <navigator url="/pages/story/story?id={{item.objectId}}">
     <view class="card-title zan-font-16 zan-ellipsis--l2">{{item.storyTitle}}</view>
