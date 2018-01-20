@@ -90,7 +90,7 @@ Page(extend({}, Toast, Tab, {
 
   onShareAppMessage() {
     return {
-      title: '用你简洁的文字来续写故事吧',
+      title: '故事接龙，快来用你简洁的文字来续写故事吧',
       path: '/pages/index/index?id=' + app.globalData.userInfo.objectId
     }
   }

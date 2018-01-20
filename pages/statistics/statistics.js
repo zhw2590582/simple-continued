@@ -8,86 +8,75 @@ Page(extend({}, Toast, {
   data: {
     type: '',
     page: 1,
-    items: []
+    items: [],
+    loadEnd: false,
+    nodata: false
   },
+  
   onShow() {
-    console.log('1');
     let options = util.getOptions();
-
-    profile.getState({
-      id: app.globalData.userInfo.objectId,
-      type: options.type,
-      page: 1
-    }, (err, data) => {
-      console.log(data)
-      if (err) {
-        this.showZanToast('获取出错了！');
-        util.errHandle(err);
-      } else {
-        this.setData({
-          items: data
-        });
-      }
-    });
-
+    this.getData({ refresh: false });
     this.setData({
       type: options.type
     }, () => {
       if (options.type === 'story'){
         wx.setNavigationBarTitle({title: '我的故事'});
-      }
-
-      if (options.type === 'round') {
+      } else if (options.type === 'round') {
         wx.setNavigationBarTitle({ title: '我的回合' });
-      }
-
-      if (options.type === 'collect') {
+      } else if (options.type === 'collect') {
         wx.setNavigationBarTitle({ title: '我的收藏' });
-      }
-
-      if (options.type === 'comment') {
+      } else if (options.type === 'comment') {
         wx.setNavigationBarTitle({ title: '我的评论' });
       }
     });
   },
-  onPullDownRefresh() {
-    console.log('onPullDownRefresh');
+
+  getData({ refresh }) {
+    let options = util.getOptions();
     profile.getState({
       id: app.globalData.userInfo.objectId,
-      type: this.data.type,
-      page: 1
-    }, (err, data) => {
-      setTimeout(() => {
-        wx.stopPullDownRefresh();
-      }, 1000);
-      if(err){
-        this.showZanToast('获取出错了！');
-        util.errHandle(err);
-      } else {
-        this.setData({
-          items: data
-        });
-      }
-    });
-  },
-  onReachBottom() {
-    console.log('onReachBottom');
-    profile.getState({
-      id: app.globalData.userInfo.objectId,
-      type: this.data.type,
-      page: this.data.page + 1
+      type: options.type,
+      page: this.data.page
     }, (err, data) => {
       if (err) {
         this.showZanToast('获取出错了！');
         util.errHandle(err);
       } else {
         let items = this.data.items;
-        items.concat(data);
-        this.setData({
-          items: items,
-          page: data.length === 0 ? this.data.page : this.data.page + 1
+        let newData = refresh ? data : items.concat(data);
+        data.forEach(item => {
+          item.updatedAt = util.formatTime(item.updatedAt, true);
         });
+        setTimeout(() => {
+          wx.stopPullDownRefresh();
+          this.setData({
+            items: newData,
+            page: data.length === 0 ? this.data.page - 1 : this.data.page,
+            nodata: this.data.page === 1 && data.length === 0,
+            loadEnd: data.length === 0
+          });
+        }, 500);
       }
     });
   },
+
+  onPullDownRefresh() {
+    this.setData({
+      page: 1,
+      loadEnd: false,
+      nodata: false,
+    }, () => {
+      this.getData({ refresh: true });
+    });
+  },
+
+  onReachBottom() {
+    this.setData({
+      page: this.data.page + 1,
+      loadEnd: false,
+      nodata: false,
+    }, () => {
+      this.getData({ refresh: false });
+    });
+  }
 }));

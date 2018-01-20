@@ -1,6 +1,7 @@
+<import src="/libs/zanui/loadmore/index.wxml" />
 <view class="container">
   <view wx:if="{{type === 'story'}}">
-    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" inner-text="story"></component-story>
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
   </view>
   <view wx:if="{{type === 'round'}}">
     <component-round wx:for="{{items}}" wx:key="{{item.objectId}}" inner-text="round"></component-round>
@@ -11,4 +12,7 @@
   <view wx:if="{{type === 'comment'}}">
     <component-comment wx:for="{{items}}" wx:key="{{item.objectId}}" inner-text="comment"></component-comment>
   </view>
+  <template is="zan-loadmore" data="{{ loading: !loadEnd && !nodata }}"></template>
+  <template is="zan-loadmore" data="{{ nomore: loadEnd && !nodata }}"></template>
+  <template is="zan-loadmore" data="{{ nodata: nodata }}"></template>
 </view>

@@ -1,6 +1,6 @@
 module.exports = {
   // 每页加载个数
-  pageSize: 3,
+  pageSize: 10,
 
   // 分类
   catalogues: [{

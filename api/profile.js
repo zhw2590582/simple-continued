@@ -47,8 +47,10 @@ exports.openByShare = (args, callback) => {
  */
 
 exports.getState = (args, callback) => {
+  const user = new AV.Query('_User');
   const name = util.firstUpperCase(args.type);
   const query = new AV.Query(name);
+  query.include('owner');
   query.contains('ownerId', args.id);
   query.limit(config.pageSize);
   query.skip(config.pageSize * (args.page - 1));
