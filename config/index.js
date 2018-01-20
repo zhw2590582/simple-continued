@@ -1,5 +1,5 @@
 module.exports = {
-  pageSize: 2,
+  pageSize: 10,
   catalogues: [{
     name: "未分类",
     value: "0"

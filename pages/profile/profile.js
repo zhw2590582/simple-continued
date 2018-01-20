@@ -24,9 +24,14 @@ Page(extend({}, Toast, {
       setTimeout(() => {
         wx.stopPullDownRefresh();
       }, 1000);
-      this.setData({
-        userInfo: data
-      });
+      if(err){
+        this.showZanToast('获取出错了！');
+        util.errHandle(err);
+      } else {
+        this.setData({
+          userInfo: data
+        });
+      }
     });
   }
 }));

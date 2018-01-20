@@ -4,9 +4,11 @@
 <import src="/libs/zanui/noticebar/index.wxml" />
 
 <view class="container">
-  <view class="zan-panel notice">
-    <template is="zan-noticebar" data="{{ text: '更多玩法说明，请点击这里。' }}"></template>
-  </view>
+  <navigator url="/pages/usage/usage">
+    <view class="zan-panel notice">
+      <template is="zan-noticebar" data="{{ text: '更多玩法说明，请点击这里。' }}"></template>
+    </view>
+  </navigator>  
   <view class="input-item">
     <view class="zan-panel-title">标题：</view>
     <view class="zan-panel">

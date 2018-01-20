@@ -53,3 +53,12 @@ exports.formatTime = (date, before) => {
    ? moment(date).startOf('hour').fromNow()
    : moment(date).format('YYYY-MM-DD HH:mm');
 }
+
+/**
+ * 首字母大写
+ *
+ * @param {String} str
+ */
+exports.firstUpperCase = str => {
+  return str.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase());
+}

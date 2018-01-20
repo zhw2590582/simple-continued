@@ -1,5 +1,6 @@
 const AV = require('../libs/av-weapp-min.js');
 const config = require('../config/index.js');
+const util = require('../utils/util.js');
 
 /**
  * 刷新用户信息
@@ -33,6 +34,28 @@ exports.openByShare = (args, callback) => {
     });
   }).then(data => {
     callback && callback(null, data.toJSON());
+  }, error => {
+    callback && callback(error);
+  });
+}
+
+/**
+ * 查询用户状态信息：我的故事、我的回合、我的收藏、我的评论
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.getState = (args, callback) => {
+  const name = util.firstUpperCase(args.type);
+  const query = new AV.Query(name);
+  query.contains('ownerId', args.id);
+  query.limit(config.pageSize);
+  query.skip(config.pageSize * (args.page - 1));
+  query.ascending('createdAt');
+  query.find().then(data => {
+    let toJson = data.map(item => item.toJSON());
+    callback && callback(null, toJson);
   }, error => {
     callback && callback(error);
   });

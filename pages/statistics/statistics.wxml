@@ -1,3 +1,14 @@
 <view class="container">
-  statistics
+  <view wx:if="{{type === 'story'}}">
+    story
+  </view>
+  <view wx:if="{{type === 'round'}}">
+    round
+  </view>
+  <view wx:if="{{type === 'collect'}}">
+    collect
+  </view>
+  <view wx:if="{{type === 'comment'}}">
+    comment
+  </view>
 </view>
