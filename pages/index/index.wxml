@@ -1,6 +1,5 @@
 <view class="container">
   <view class="zan-btn">按钮</view>
-  <component-base inner-text="Some text"></component-base>
   <view class="userinfo">
     <block>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>

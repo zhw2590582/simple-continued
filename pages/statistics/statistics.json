@@ -1,3 +1,9 @@
 {
-  "navigationBarTitleText": "我的"
+  "navigationBarTitleText": "我的",
+    "usingComponents": {
+      "component-story": "../../component/story/story",
+      "component-round": "../../component/round/round",
+      "component-collect": "../../component/collect/collect",
+      "component-comment": "../../component/comment/comment"
+    }
 }

@@ -1,14 +1,14 @@
 <view class="container">
   <view wx:if="{{type === 'story'}}">
-    story
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" inner-text="story"></component-story>
   </view>
   <view wx:if="{{type === 'round'}}">
-    round
+    <component-round wx:for="{{items}}" wx:key="{{item.objectId}}" inner-text="round"></component-round>
   </view>
   <view wx:if="{{type === 'collect'}}">
-    collect
+    <component-collect wx:for="{{items}}" wx:key="{{item.objectId}}" inner-text="collect"></component-collect>
   </view>
   <view wx:if="{{type === 'comment'}}">
-    comment
+    <component-comment wx:for="{{items}}" wx:key="{{item.objectId}}" inner-text="comment"></component-comment>
   </view>
 </view>
