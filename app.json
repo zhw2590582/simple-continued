@@ -31,7 +31,7 @@
         "iconPath": "assets/tabBar-continue.png",
         "selectedIconPath": "assets/tabBar-continue-selected.png",
         "pagePath": "pages/index/index",
-        "text": "简续"
+        "text": "首页"
       },
       {
         "iconPath": "assets/tabBar-edit.png",
