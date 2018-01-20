@@ -1,12 +1,16 @@
+<import src="/libs/zanui/tab/index.wxml" />
 <view class="container">
-  <view class="zan-btn">按钮</view>
-  <view class="userinfo">
-    <block>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <template is="zan-tab" data="{{ ...tab }}"></template>
+  <view wx:if="{{tab.selectedId === 'continued'}}">
+    continued
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view wx:if="{{tab.selectedId === 'popular'}}">
+    popular
+  </view>
+  <view wx:if="{{tab.selectedId === 'latest'}}">
+    latest
+  </view>
+  <view wx:if="{{tab.selectedId === 'discover'}}">
+    discover
   </view>
 </view>
