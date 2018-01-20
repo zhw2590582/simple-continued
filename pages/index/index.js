@@ -1,5 +1,6 @@
 const { Toast, Tab, extend } = require('../../libs/zanui/index.js');
 const util = require('../../utils/util.js');
+const config = require('../../config/index.js');
 const story = require('../../api/story.js');
 const app = getApp();
 
@@ -14,19 +15,7 @@ Page(extend({}, Toast, Tab, {
       height: 45,
       scroll: true,
       fixed: true,
-      list: [{
-        id: 'popular',
-        title: '热门'
-      }, {
-        id: 'latest',
-        title: '最新'
-      }, {
-        id: 'over',
-        title: '完结'
-      }, {
-        id: 'discover',
-        title: '发现'
-      }]
+      list: config.showTypes
     }
   },
 
@@ -61,7 +50,7 @@ Page(extend({}, Toast, Tab, {
           wx.stopPullDownRefresh();
           this.setData({
             items: newData,
-            page: data.length === 0 ? this.data.page - 1 : this.data.page + 1,
+            page: data.length === 0 ? this.data.page - 1 : this.data.page,
             nodata: this.data.page === 1 && data.length === 0,
             loadEnd: data.length === 0
           });

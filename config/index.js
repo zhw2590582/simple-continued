@@ -33,5 +33,20 @@ module.exports = {
   }, {
     name: '删除',
     value: 3
+  }],
+
+  // 展示类型
+  showTypes: [{
+    id: 'popular',
+    title: '热门'
+  }, {
+    id: 'latest',
+    title: '最新'
+  }, {
+    id: 'over',
+    title: '完结'
+  }, {
+    id: 'discover',
+    title: '发现'
   }]
 }
