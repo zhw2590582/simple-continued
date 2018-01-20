@@ -1,3 +1,9 @@
 {
-  "navigationBarTitleText": "消息"
+  "navigationBarTitleText": "消息",
+  "usingComponents": {
+    "component-like": "../../component/like/like",
+    "component-round": "../../component/round/round",
+    "component-collect": "../../component/collect/collect",
+    "component-comment": "../../component/comment/comment"
+  }
 }

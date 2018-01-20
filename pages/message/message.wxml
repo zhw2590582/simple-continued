@@ -1,3 +1,16 @@
+<import src="/libs/zanui/tab/index.wxml" />
 <view class="container">
-  message
+  <template is="zan-tab" data="{{ ...tab }}"></template>
+  <view wx:if="{{tab.selectedId === 'round'}}">
+    <component-round inner-text="round"></component-round>
+  </view>
+  <view wx:if="{{tab.selectedId === 'comment'}}">
+    <component-comment inner-text="comment"></component-comment>
+  </view>
+  <view wx:if="{{tab.selectedId === 'collect'}}">
+    <component-collect inner-text="collect"></component-collect>
+  </view>
+  <view wx:if="{{tab.selectedId === 'like'}}">
+    <component-like inner-text="like"></component-like>
+  </view>
 </view>
