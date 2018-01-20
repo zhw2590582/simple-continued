@@ -2,15 +2,15 @@
 <view class="container">
   <template is="zan-tab" data="{{ ...tab }}"></template>
   <view wx:if="{{tab.selectedId === 'continued'}}">
-    continued
+    <component-story inner-text="continued"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'popular'}}">
-    popular
+    <component-story inner-text="popular"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'latest'}}">
-    latest
+    <component-story inner-text="latest"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'discover'}}">
-    discover
+    <component-story inner-text="discover"></component-story>
   </view>
 </view>

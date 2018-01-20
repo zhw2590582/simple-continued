@@ -27,7 +27,7 @@
   <view class="zan-panel about">
     <view class="zan-cell zan-cell--access">
       <view class="zan-cell__bd">关注公众号</view>
-      <view class="zan-cell__ft"></view>
+      <view class="zan-cell__ft zan-c-gray">提问、建议、举报</view>
       <button open-type="contact" class="contact">联系客服</button>
     </view>
     <view class="zan-cell zan-cell--access" bindtap="menuTap" data-url="/pages/usage/usage">
