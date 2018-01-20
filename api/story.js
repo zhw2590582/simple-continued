@@ -171,3 +171,35 @@ exports.query = (args, callback) => {
     callback && callback(error);
   });
 }
+
+/**
+ * 按类型查询: 热门、最新、完结
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.queryType = (args, callback) => {
+  const user = new AV.Query('_User');
+  const query = new AV.Query('Story');
+  query.include('owner');
+  if (args.type === 'popular'){
+    query.equalTo('status', 1);
+    query.descending('popular');
+  } else if (args.type === 'latest') {
+    query.equalTo('status', 1);
+    query.descending('updatedAt');
+  } else if (args.type === 'over') {
+    query.equalTo('status', 2);
+    query.descending('updatedAt');
+  }
+
+  query.limit(config.pageSize);
+  query.skip(config.pageSize * (args.page - 1));
+  query.find().then(data => {
+    let toJson = data.map(item => item.toJSON());
+    callback && callback(null, toJson);
+  }, error => {
+    callback && callback(error);
+  });
+}

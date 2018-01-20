@@ -1,16 +1,20 @@
 <import src="/libs/zanui/tab/index.wxml" />
-<view class="container">
+<import src="/libs/zanui/loadmore/index.wxml" />
+<view class="container page-index">
   <template is="zan-tab" data="{{ ...tab }}"></template>
-  <view wx:if="{{tab.selectedId === 'continued'}}">
-    <component-story inner-text="continued"></component-story>
-  </view>
   <view wx:if="{{tab.selectedId === 'popular'}}">
-    <component-story inner-text="popular"></component-story>
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'latest'}}">
-    <component-story inner-text="latest"></component-story>
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
+  </view>
+  <view wx:if="{{tab.selectedId === 'over'}}">
+    <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
   </view>
   <view wx:if="{{tab.selectedId === 'discover'}}">
-    <component-story inner-text="discover"></component-story>
+    
   </view>
+  <template is="zan-loadmore" data="{{ loading: !loadEnd && !nodata }}"></template>
+  <template is="zan-loadmore" data="{{ nomore: loadEnd && !nodata }}"></template>
+  <template is="zan-loadmore" data="{{ nodata: nodata }}"></template>
 </view>

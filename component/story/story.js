@@ -1,9 +1,9 @@
 Component({
   // 继承属性验证
   properties: {
-    innerText: {
-      type: String,
-      value: 'default value',
+    item: {
+      type: Object,
+      value: {},
       observer: '_propertyChange'
     }
   },
@@ -21,7 +21,7 @@ Component({
 
     // 继承属性发生变化
     _propertyChange(newVal, oldVal) {
-      console.log(newVal, oldVal)
+      // console.log(newVal, oldVal)
     }
   },
 

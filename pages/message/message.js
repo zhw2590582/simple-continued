@@ -9,6 +9,8 @@ Page(extend({}, Toast, Tab, {
     tab: {
       selectedId: 'round',
       height: 45,
+      scroll: true,
+      fixed: true,
       list: [{
         id: 'round',
         title: '回合'

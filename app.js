@@ -9,7 +9,6 @@ AV.init({
 App({
   // 小程序初始化并登录
   onLaunch(options) {
-    wx.showLoading({ title: '加载中' });
     this.userLogin();
   },
 
@@ -21,7 +20,6 @@ App({
   // 用户登录
   userLogin() {
     AV.User.loginWithWeapp().then(user => {
-      wx.hideLoading();
       this.globalData.userInfo = user.toJSON();
       this.getUserSetting();
     }).catch(console.error);
