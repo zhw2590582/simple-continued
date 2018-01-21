@@ -65,8 +65,7 @@ Page(extend({}, Toast, Tab, {
   },
 
   onLoad(options) {
-    // 统计转发来源
-    options.id && profile.openByShare({ id: options.id });
+    
   },
 
   onShow() {
@@ -96,7 +95,7 @@ Page(extend({}, Toast, Tab, {
   onShareAppMessage() {
     return {
       title: '故事接龙，快来用你简洁的文字来续写故事吧',
-      path: '/pages/index/index?id=' + app.globalData.userInfo.objectId
+      path: '/pages/index/index?userId=' + app.globalData.userInfo.objectId
     }
   }
 }));

@@ -5,6 +5,7 @@
     "pages/creat/creat",
     "pages/message/message",
     "pages/story/story",
+    "pages/round/round",
     "pages/profile/profile",
     "pages/statistics/statistics",
     "pages/about/about",

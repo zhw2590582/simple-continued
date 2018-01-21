@@ -1,4 +1,5 @@
 <import src="/libs/zanui/toast/index.wxml" />
+<import src="/libs/zanui/capsule/index.wxml" />
 <view class="container">
   <view class="zan-panel title zan-font-16 zan-c-black">{{story.storyTitle}}</view>
   <view class="zan-panel">
@@ -9,7 +10,59 @@
       </view>
       <text class="more zan-font-14 zan-c-gray-dark" bindtap="operate">{{story.updatedAt}}</text>
     </view>
-    <view class="card-content zan-font-14 zan-c-gray-darker">{{story.content}}</view>
+    <view class="card-content zan-font-16 zan-c-gray-darker">{{story.content}}</view>
+    <view class="card-mate zan-font-12 zan-c-gray">
+      <view>分类：{{story.catalogue || '无'}}</view>
+      <view>标签：{{story.tags || '无'}}</view>
+    </view>
+  </view>
+  <view class="zan-panel">
+    <view class="card-rules">
+      <view class="zan-cell" wx:if="{{story.rules.length > 0}}" wx:for="{{story.rules}}" wx:key="{{index}}">
+        <view class="zan-cell__bd zan-c-gray-darker">规则{{index + 1}}：{{item}}</view>
+      </view>
+      <view class="zan-cell" wx:if="{{story.rules.length === 0}}">
+        <view class="zan-cell__bd zan-c-gray-darker">规则：无规则</view>
+      </view>
+    </view>
+    <view class="card-mate">
+      <template is="capsule" data="{{ leftText: '回合总数', rightText: story.roundLimit + ' 回', color: '#acacac' }}" />
+      <template is="capsule" data="{{ leftText: '回合字数', rightText: story.wordLimit + ' 字', color: '#acacac' }}" />
+      <template is="capsule" data="{{ leftText: '回合审核', rightText: story.auditMode === 1 ? '否' : '是', color: '#acacac' }}" />
+    </view>
+  </view>
+  <view class="zan-panel">
+    回合
+  </view>
+</view>
+<view class="story-bottom zan-font-10 zan-c-gray-darker">
+  <view class="item" bindtap="storyWrite">
+    <image class="story-bottom-icon" src="/assets/story-write.png" background-size="cover"></image>
+    <view class="story-bottom-name">续写</view>
+  </view>
+  <view class="item" bindtap="storyLike" data-like="1">
+    <block wx:if="{{false}}">
+      <image class="story-bottom-icon" src="/assets/story-like.png" background-size="cover"></image>
+      <view class="story-bottom-name">点赞</view>
+    </block>
+    <block wx:else>
+      <image class="story-bottom-icon" src="/assets/story-like-selected.png" background-size="cover"></image>
+      <view class="story-bottom-name">取消点赞</view>
+    </block>
+  </view>
+  <view class="item" bindtap="storyCollect" data-collect="1">
+    <block wx:if="{{false}}">
+      <image class="story-bottom-icon" src="/assets/story-collect.png" background-size="cover"></image>
+      <view class="story-bottom-name">收藏</view>
+    </block>
+    <block wx:else>
+      <image class="story-bottom-icon" src="/assets/story-collect-selected.png" background-size="cover"></image>
+      <view class="story-bottom-name">取消收藏</view>
+    </block>
+  </view>
+  <view class="item" bindtap="storyShare">
+    <image class="story-bottom-icon" src="/assets/story-share.png" background-size="cover"></image>
+    <view class="story-bottom-name">转发</view>
   </view>
 </view>
 <template is="zan-toast" data="{{ zanToast }}"></template>

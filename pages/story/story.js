@@ -29,6 +29,8 @@ Page(extend({}, Toast, {
         util.errHandle(err);
       } else {
         data.updatedAt = util.formatTime(data.updatedAt, true);
+        data.catalogue = config.catalogues.find(item => item.value == data.catalogue).name;
+        data.tags = data.tags.join('、');
         this.setData({
           story: data
         });
@@ -46,6 +48,22 @@ Page(extend({}, Toast, {
   getRound(){
     let options = util.getOptions();
 
+  },
+
+  storyWrite(){
+    console.log('1')
+  },
+
+  storyLike() {
+    console.log('1')
+  },
+
+  storyCollect() {
+    console.log('1')
+  },
+
+  storyShare() {
+    console.log('1')
   },
 
   onPullDownRefresh(){
@@ -67,5 +85,12 @@ Page(extend({}, Toast, {
     }, () => {
       this.getRound({ refresh: false });
     });
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '故事接龙，快来用你简洁的文字来续写故事吧',
+      path: '/pages/index/index?userId=' + app.globalData.userInfo.objectId
+    }
   }
 }));

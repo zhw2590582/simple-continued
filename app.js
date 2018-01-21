@@ -1,4 +1,5 @@
 const AV = require('./libs/av-weapp-min.js');
+const profile = require('./api/profile.js');
 
 // leancloud初始化
 AV.init({
@@ -10,6 +11,7 @@ App({
   // 小程序初始化并登录
   onLaunch(options) {
     this.userLogin();
+    options.userId && profile.openByShare({ id: options.userId });
   },
 
   // 小程序启动
