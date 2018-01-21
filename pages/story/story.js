@@ -2,6 +2,7 @@ const { Toast, extend } = require('../../libs/zanui/index.js');
 const util = require('../../utils/util.js');
 const config = require('../../config/index.js');
 const story = require('../../api/story.js');
+const round = require('../../api/round.js');
 const app = getApp();
 
 Page(extend({}, Toast, {
@@ -11,7 +12,9 @@ Page(extend({}, Toast, {
     nodata: false,
     story: {}
   },
+
   onShow() {
+    let options = util.getOptions();
     this.getStory();
     this.getRound({ refresh: false });
   },
@@ -25,9 +28,17 @@ Page(extend({}, Toast, {
         this.showZanToast('获取出错了！');
         util.errHandle(err);
       } else {
+        data.updatedAt = util.formatTime(data.updatedAt, true);
         this.setData({
           story: data
-        })
+        });
+
+        // 浏览量
+        if (data.owner.objectId !== app.globalData.userInfo.objectId) {
+          story.view({
+            id: options.id
+          });
+        }
       }
     });
   },

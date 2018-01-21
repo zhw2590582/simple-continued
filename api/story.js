@@ -37,8 +37,9 @@ exports.creat = (args, callback) => {
  */
 
 exports.get = (args, callback) => {
-  var story = AV.Object.createWithoutData('Story', args.id);
-  story.fetch().then(data => {
+  const query = new AV.Query('Story');
+  query.include('owner');
+  query.get(args.id).then(data => {
     callback && callback(null, data.toJSON());
   }, error => {
     callback && callback(error);
@@ -222,7 +223,6 @@ exports.query = (args, callback) => {
  */
 
 exports.queryType = (args, callback) => {
-  const user = new AV.Query('_User');
   const query = new AV.Query('Story');
   query.include('owner');
   if (args.type === 'popular'){

@@ -1,7 +1,15 @@
 <import src="/libs/zanui/toast/index.wxml" />
 <view class="container">
-  <view class="title">
-    {{story.storyTitle}}
+  <view class="zan-panel title zan-font-16 zan-c-black">{{story.storyTitle}}</view>
+  <view class="zan-panel">
+    <view class="card-header">
+      <view class="card-header-left">
+        <image class="avatar" src="{{story.owner.avatarUrl}}"></image>
+        <text class="nickname zan-font-14 zan-c-gray-dark">{{story.owner.nickName}}</text>
+      </view>
+      <text class="more zan-font-14 zan-c-gray-dark" bindtap="operate">{{story.updatedAt}}</text>
+    </view>
+    <view class="card-content zan-font-14 zan-c-gray-darker">{{story.content}}</view>
   </view>
 </view>
 <template is="zan-toast" data="{{ zanToast }}"></template>
