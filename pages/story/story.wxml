@@ -26,8 +26,8 @@
       </view>
     </view>
     <view class="card-mate">
-      <template is="capsule" data="{{ leftText: '回合总数', rightText: story.roundLimit + ' 回', color: '#acacac' }}" />
-      <template is="capsule" data="{{ leftText: '回合字数', rightText: story.wordLimit + ' 字', color: '#acacac' }}" />
+      <template is="capsule" data="{{ leftText: '回合总数', rightText: (story.roundLimit || 0) + ' 回', color: '#acacac' }}" />
+      <template is="capsule" data="{{ leftText: '回合字数', rightText: (story.wordLimit || 0) + ' 字', color: '#acacac' }}" />
       <template is="capsule" data="{{ leftText: '回合审核', rightText: story.auditMode === 1 ? '否' : '是', color: '#acacac' }}" />
     </view>
   </view>
