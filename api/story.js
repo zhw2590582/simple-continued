@@ -68,7 +68,8 @@ exports.updata = (args, callback) => {
 
 exports.del = (args, callback) => {
   const story = AV.Object.createWithoutData('Story', args.id);
-  story.destroy().then(data => {
+  story.set('status', 0);
+  story.save().then(data => {
     callback && callback(null, data.toJSON());
   }, error => {
     callback && callback(error);
@@ -85,7 +86,8 @@ exports.del = (args, callback) => {
 exports.view = (args, callback) => {
   const story = AV.Object.createWithoutData('Story', args.id);
   story.save().then(data => {
-    data.increment('views', 1);
+    data.increment('viewNum', 1);
+    data.increment('popular', config.popular.view);
     return data.save(null, {
       fetchWhenSave: true
     });
@@ -106,7 +108,8 @@ exports.view = (args, callback) => {
 exports.like = (args, callback) => {
   const story = AV.Object.createWithoutData('Story', args.id);
   story.save().then(data => {
-    data.increment('likes', 1);
+    data.increment('likeNum', args.value);
+    data.increment('popular', config.popular.like);
     return data.save(null, {
       fetchWhenSave: true
     });
@@ -127,7 +130,30 @@ exports.like = (args, callback) => {
 exports.share = (args, callback) => {
   const story = AV.Object.createWithoutData('Story', args.id);
   story.save().then(data => {
-    data.increment('share', 1);
+    data.increment('shareNum', 1);
+    data.increment('popular', config.popular.share);
+    return data.save(null, {
+      fetchWhenSave: true
+    });
+  }).then(data => {
+    callback && callback(null, data.toJSON());
+  }, error => {
+    callback && callback(error);
+  });
+}
+
+/**
+ * 故事收藏
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.collect = (args, callback) => {
+  const story = AV.Object.createWithoutData('Story', args.id);
+  story.save().then(data => {
+    data.increment('collectNum', 1);
+    data.increment('popular', config.popular.collect);
     return data.save(null, {
       fetchWhenSave: true
     });

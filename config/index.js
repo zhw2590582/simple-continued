@@ -24,18 +24,27 @@ module.exports = {
   }],
 
   // 故事状态
-  status: [{
+  storyStatus: [{
+    name: '删除',
+    value: 0
+  }, {
     name: '待续',
     value: 1
   }, {
     name: '结束',
     value: 2
-  }, {
-    name: '删除',
-    value: 3
   }],
 
-  // 展示类型
+  // 回合状态
+  roundStatus: [{
+    name: '删除',
+    value: 0
+  }, {
+    name: '正常',
+    value: 1
+  }],
+
+  // 首页展示类型
   showTypes: [{
     id: 'popular',
     title: '热门'
@@ -48,5 +57,14 @@ module.exports = {
   }, {
     id: 'discover',
     title: '发现'
-  }]
+  }],
+
+  // 热门数值比例
+  popular: {
+    view: 1,
+    like: 10,
+    share: 10,
+    collect: 10,
+    comment: 10
+  }
 }
