@@ -4,17 +4,14 @@
       <image class="avatar" src="{{item.owner.avatarUrl}}"></image>
       <text class="nickname zan-font-14 zan-c-gray-dark">{{item.owner.nickName}}</text>
     </view>
-    <text class="more zan-font-16 zan-c-gray-dark" bindtap="operate">···</text>
+    <text class="more zan-font-14 zan-c-gray-dark" bindtap="operate">{{item.updatedAt}}</text>
   </view>
   <navigator url="/pages/story/story?id={{item.objectId}}">
     <view class="card-title zan-font-16 zan-ellipsis--l2">{{item.storyTitle}}</view>
     <view class="card-content zan-font-14 zan-ellipsis--l3 zan-c-gray-darker">{{item.content}}</view>
     <view class="card-bottom zan-font-14 zan-c-gray-dark">
       <view class="card-mate">
-        {{item.roundNum}} 回合 · {{item.commentNum}} 评论 · {{item.likeNum}} 赞
-      </view>
-      <view class="card-date">
-        {{item.updatedAt}}
+        {{item.roundNum}} 回合 · {{item.commentNum}} 评论 · {{item.likeNum}} 点赞
       </view>
     </view>
   </navigator>

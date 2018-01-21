@@ -37,7 +37,7 @@ exports.getOptions = () => {
  */
 
 exports.errHandle = err => {
-  throw new Error(err.message);
+  console.error(JSON.stringify(err));
 }
 
 /**

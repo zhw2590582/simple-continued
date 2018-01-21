@@ -1,6 +1,7 @@
 const AV = require('../libs/av-weapp-min.js');
 const config = require('../config/index.js');
 const story = require('./story.js');
+const profile = require('./profile.js');
 
 /**
  * 添加回合
@@ -23,6 +24,10 @@ exports.creat = (args, callback) => {
   round.set('targetStory', targetStory);
 
   round.save().then(data => {
+    profile.addState({
+      id: args.ownerId,
+      type: 'roundNum'
+    });
     callback && callback(null, data.toJSON());
   }, error => {
     callback && callback(error);
@@ -62,6 +67,29 @@ exports.like = (args, callback) => {
       fetchWhenSave: true
     });
   }).then(data => {
+    callback && callback(null, data.toJSON());
+  }, error => {
+    callback && callback(error);
+  });
+}
+
+/**
+ * 获取回合
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.get = (args, callback) => {
+  const user = new AV.Query('_User');
+  const query = new AV.Query('Round');
+  query.include('owner');
+  query.equalTo('status', 1);
+  query.contains('storyId', args.id);
+  query.limit(config.pageSize);
+  query.skip(config.pageSize * (args.page - 1));
+  query.ascending('createdAt');
+  query.find().then(data => {
     callback && callback(null, data.toJSON());
   }, error => {
     callback && callback(error);

@@ -1,5 +1,6 @@
 const AV = require('../libs/av-weapp-min.js');
 const config = require('../config/index.js');
+const profile = require('./profile.js');
 
 /**
  * 创建故事
@@ -17,6 +18,11 @@ exports.creat = (args, callback) => {
   const owner = AV.Object.createWithoutData('_User', args.ownerId);
   story.set('owner', owner);
   story.save().then(data => {
+    profile.addState({
+      value: 1,
+      id: args.ownerId,
+      type: 'storyNum'
+    });
     callback && callback(null, data.toJSON());
   }, error => {
     callback && callback(error);
@@ -72,6 +78,11 @@ exports.del = (args, callback) => {
   story.save().then(data => {
     callback && callback(null, data.toJSON());
   }, error => {
+    profile.addState({
+      value: -1,
+      id: args.ownerId,
+      type: 'storyNum'
+    });
     callback && callback(error);
   });
 }
@@ -158,6 +169,11 @@ exports.collect = (args, callback) => {
       fetchWhenSave: true
     });
   }).then(data => {
+    profile.addState({
+      value: 1,
+      id: args.ownerId,
+      type: 'collectNum'
+    });
     callback && callback(null, data.toJSON());
   }, error => {
     callback && callback(error);

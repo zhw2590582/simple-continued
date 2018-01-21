@@ -1,4 +1,5 @@
 <import src="/libs/zanui/loadmore/index.wxml" />
+<import src="/libs/zanui/toast/index.wxml" />
 <view class="container">
   <view wx:if="{{type === 'story'}}">
     <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}"></component-story>
@@ -16,3 +17,4 @@
   <template is="zan-loadmore" data="{{ nomore: loadEnd && !nodata }}"></template>
   <template is="zan-loadmore" data="{{ nodata: nodata }}"></template>
 </view>
+<template is="zan-toast" data="{{ zanToast }}"></template>
