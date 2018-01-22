@@ -81,12 +81,12 @@
       </view>
     </view>
   </view>
-  <view class="input-item">
+    <view class="input-item">
     <view class="zan-panel-title">审核模式：</view>
     <view class="zan-panel">
       <template is="zan-select" data="{{ items: auditModes, checkedValue: auditMode, componentId: 'auditMode' }}"></template>
     </view>
-  </view>
+  </view>  
   <view class="zan-btns">
     <button class="zan-btn zan-btn--warn" bindtap="submit">发布故事</button>
   </view>
