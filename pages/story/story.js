@@ -12,7 +12,8 @@ Page(extend({}, Toast, {
     nodata: false,
     roundWrite: false,
     roundValue: '',
-    story: {}
+    story: {},
+    rounds: []
   },
 
   onShow() {
@@ -47,9 +48,32 @@ Page(extend({}, Toast, {
     });
   },
 
-  getRound() {
+  getRound({ refresh }) {
     let options = util.getOptions();
-
+    round.get({
+      id: options.id,
+      page: this.data.page
+    }, (err, data) => {
+      if (err) {
+        this.showZanToast('获取回合失败，请稍后再试！');
+        util.errHandle(err);
+        return;
+      }
+      let items = this.data.rounds;
+      let newData = refresh ? data : items.concat(data);
+      data.forEach(item => {
+        item.updatedAt = util.formatTime(item.updatedAt, true);
+      });
+      setTimeout(() => {
+        wx.stopPullDownRefresh();
+        this.setData({
+          rounds: newData,
+          page: data.length === 0 ? this.data.page - 1 : this.data.page,
+          nodata: this.data.page === 1 && data.length === 0,
+          loadEnd: data.length === 0
+        });
+      }, 500);
+    });
   },
 
   roundWritePopup(e) {

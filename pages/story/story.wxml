@@ -1,6 +1,7 @@
 <import src="/libs/zanui/toast/index.wxml" />
 <import src="/libs/zanui/capsule/index.wxml" />
 <import src="/libs/zanui/field/index.wxml" />
+<import src="/libs/zanui/loadmore/index.wxml" />
 <view class="container">
   <view class="zan-panel title zan-font-16 zan-c-black">{{story.storyTitle}}</view>
   <view class="zan-panel">
@@ -31,22 +32,25 @@
       <template is="capsule" data="{{ leftText: '回合字数', rightText: (story.wordLimit || 0) + ' 字', color: '#acacac' }}" />
     </view>
   </view>
-  <view class="zan-panel roundItem">
-    dadasd
+  <view class="roundTip">连载至第 {{story.roundNum}} 回，还剩 {{story.roundLimit - story.roundNum}} 回</view>
+  <view class="rounds">
+    <view class="zan-panel roundItem" wx:for="{{rounds}}" wx:key="{{item.objectId}}">
+      {{item.content}}
+    </view>
+    <template is="zan-loadmore" data="{{ loading: !loadEnd && !nodata }}"></template>
+    <template is="zan-loadmore" data="{{ nomore: loadEnd && !nodata }}"></template>
   </view>
 </view>
-
 <view class="zan-popup zan-popup--bottom {{ roundWrite ? 'zan-popup--show' : ''}}">
   <view class="zan-popup__mask" bindtap="roundWritePopup" data-type="{{false}}"></view>
   <view class="zan-popup__container">
-    <textarea class="zan-font-14" value="" bindblur="roundWriteBlur" placeholder="自动变高" maxlength="{{10}}" fixed="{{true}}" />
+    <textarea class="zan-font-14" value="" bindblur="roundWriteBlur" placeholder="最大回合字数：{{story.wordLimit}}" maxlength="{{10}}" fixed="{{true}}" />
     <view class="storyWriteBtns">
       <button class="zan-btn" bindtap="roundWritePopup" data-type="{{false}}">取消</button>
       <button class="zan-btn zan-btn--warn" bindtap="addRound">提交</button>
     </view>
   </view>
 </view>
-
 <view class="story-bottom zan-font-10 zan-c-gray-darker">
   <view class="item" bindtap="roundWritePopup" data-type="{{true}}">
     <image class="story-bottom-icon" src="/assets/story-write.png" background-size="cover"></image>
@@ -71,7 +75,7 @@
   <view class="item">
     <image class="story-bottom-icon" src="/assets/story-share.png" background-size="cover"></image>
     <view class="story-bottom-name">转发</view>
-    <button class="share" open-type="share">进入客服会话</button>
+    <button class="share" open-type="share"></button>
   </view>
 </view>
 <template is="zan-toast" data="{{ zanToast }}"></template>

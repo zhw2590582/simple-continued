@@ -13,8 +13,9 @@ const profile = require('./profile.js');
 exports.creat = (args, callback) => {
   const Rounds = AV.Object.extend('Round');
   const round = new Rounds();
-
-  round.set('content', args.content);
+  Object.keys(args).forEach(item => {
+    round.set(item, args[item]);
+  });
   const owner = AV.Object.createWithoutData('_User', args.ownerId);
   round.set('owner', owner);
   const targetStory = AV.Object.createWithoutData('Story', args.storyId);
@@ -71,7 +72,7 @@ exports.like = (args, callback) => {
 }
 
 /**
- * 获取回合
+ * 获取故事回合
  *
  * @param {Object} args
  * @param {Function} callback
@@ -87,7 +88,8 @@ exports.get = (args, callback) => {
   query.skip(config.pageSize * (args.page - 1));
   query.ascending('createdAt');
   query.find().then(data => {
-    callback && callback(null, data.toJSON());
+    let toJson = data.map(item => item.toJSON());
+    callback && callback(null, toJson);
   }, error => {
     callback && callback(error);
   });
