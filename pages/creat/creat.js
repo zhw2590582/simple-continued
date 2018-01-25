@@ -110,8 +110,19 @@ Page(extend({}, Toast, {
         this.showZanToast('请输入标题！');
         return;
       }
+
       if (this.data.content === '') {
         this.showZanToast('请输入故事开头！');
+        return;
+      }
+
+      if (this.data.roundLimit < 5) {
+        this.showZanToast('请输入至少5个回合总数！');
+        return;
+      }
+
+      if (this.data.wordLimit < 5) {
+        this.showZanToast('请输入至少5个每回合字数！');
         return;
       }
 
@@ -139,6 +150,6 @@ Page(extend({}, Toast, {
           }, 1000);
         }
       });
-    }, 10);
+    }, 100);
   }
 }));

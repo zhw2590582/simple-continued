@@ -3,7 +3,6 @@
   "usingComponents": {
     "component-story": "../../component/story/story",
     "component-round": "../../component/round/round",
-    "component-collect": "../../component/collect/collect",
-    "component-comment": "../../component/comment/comment"
+    "component-collect": "../../component/collect/collect"
   }
 }

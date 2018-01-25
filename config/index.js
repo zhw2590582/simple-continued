@@ -7,11 +7,17 @@ module.exports = {
     name: "未分类",
     value: 0
   }, {
-    name: "社会",
+    name: "日常",
     value: 1,
   }, {
-    name: "色情",
+    name: "社会",
     value: 2
+  }, {
+    name: "恶搞",
+    value: 3
+  }, {
+    name: "小说",
+    value: 4
   }],
 
   // 故事状态

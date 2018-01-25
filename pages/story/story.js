@@ -39,8 +39,10 @@ Page(extend({}, Toast, {
         });
 
         // 检测是否可关闭
+        console.log(data.roundNum, data.roundLimit)
         if (data.roundNum >= data.roundLimit) {
           story.updata({
+            id: options.id,
             status: 2
           });
         }
@@ -128,7 +130,7 @@ Page(extend({}, Toast, {
           roundValue: ''
         }, () => {
           this.getStory();
-          this.getRound({ refresh: false });
+          this.getRound({ refresh: true });
         });
       });
     }, 100);
