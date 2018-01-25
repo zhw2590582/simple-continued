@@ -14,15 +14,6 @@ module.exports = {
     value: 2
   }],
 
-  // 审核模式
-  auditModes: [{
-    name: '自由回复',
-    value: '1'
-  }, {
-    value: '2',
-    name: '审核发表'
-  }],
-
   // 故事状态
   storyStatus: [{
     name: '删除',
@@ -54,9 +45,6 @@ module.exports = {
   }, {
     id: 'over',
     title: '完结'
-  }, {
-    id: 'discover',
-    title: '发现'
   }],
 
   // 热门数值比例

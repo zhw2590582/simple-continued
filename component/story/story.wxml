@@ -11,7 +11,7 @@
     <view class="card-content zan-font-14 zan-ellipsis--l3 zan-c-gray-darker">{{item.content}}</view>
     <view class="card-bottom zan-font-14 zan-c-gray-dark">
       <view class="card-mate">
-        {{item.roundNum}} 回合 · {{item.commentNum}} 评论 · {{item.likeNum}} 点赞
+        {{item.roundNum}} 回合 · {{item.collectNum}} 收藏 · {{item.likeNum}} 点赞
       </view>
     </view>
   </navigator>

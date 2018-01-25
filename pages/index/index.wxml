@@ -11,9 +11,6 @@
   <view wx:if="{{tab.selectedId === 'over'}}">
     <component-story wx:for="{{items}}" wx:key="{{item.objectId}}" item="{{item}}" bind:operate="operate"></component-story>
   </view>
-  <view wx:if="{{tab.selectedId === 'discover'}}">
-    
-  </view>
   <template is="zan-loadmore" data="{{ loading: !loadEnd && !nodata }}"></template>
   <template is="zan-loadmore" data="{{ nomore: loadEnd && !nodata }}"></template>
   <template is="zan-loadmore" data="{{ nodata: nodata }}"></template>

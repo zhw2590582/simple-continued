@@ -35,7 +35,15 @@
   <view class="roundTip">连载至第 {{story.roundNum}} 回，还剩 {{story.roundLimit - story.roundNum}} 回</view>
   <view class="rounds">
     <view class="zan-panel roundItem" wx:for="{{rounds}}" wx:key="{{item.objectId}}">
-      {{item.content}}
+      <view class="card-header">
+        <view class="card-header-left">
+          <button class="zan-btn zan-btn--mini zan-btn--warn zan-btn--plain roundNum">第 {{index + 1}} 回</button>
+          <image class="avatar" src="{{item.owner.avatarUrl}}"></image>
+          <text class="nickname zan-font-14 zan-c-gray-dark">{{item.owner.nickName}}</text>
+        </view>
+        <text class="more zan-font-14 zan-c-gray-dark" bindtap="operate">{{item.updatedAt}}</text>
+      </view>
+      <view class="card-content zan-font-16 zan-c-gray-darker">{{item.content}}</view>
     </view>
     <template is="zan-loadmore" data="{{ loading: !loadEnd && !nodata }}"></template>
     <template is="zan-loadmore" data="{{ nomore: loadEnd && !nodata }}"></template>
@@ -44,7 +52,7 @@
 <view class="zan-popup zan-popup--bottom {{ roundWrite ? 'zan-popup--show' : ''}}">
   <view class="zan-popup__mask" bindtap="roundWritePopup" data-type="{{false}}"></view>
   <view class="zan-popup__container">
-    <textarea class="zan-font-14" value="" bindblur="roundWriteBlur" placeholder="最大回合字数：{{story.wordLimit}}" maxlength="{{10}}" fixed="{{true}}" />
+    <textarea class="zan-font-14" value="{{roundValue}}" bindblur="roundWriteBlur" placeholder="最大回合字数：{{story.wordLimit}}" maxlength="{{story.wordLimit}}" fixed="{{true}}" />
     <view class="storyWriteBtns">
       <button class="zan-btn" bindtap="roundWritePopup" data-type="{{false}}">取消</button>
       <button class="zan-btn zan-btn--warn" bindtap="addRound">提交</button>

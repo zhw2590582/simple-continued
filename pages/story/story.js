@@ -38,6 +38,13 @@ Page(extend({}, Toast, {
           story: data
         });
 
+        // 检测是否可关闭
+        if (data.roundNum >= data.roundLimit) {
+          story.updata({
+            status: 2
+          });
+        }
+
         // 浏览量
         if (data.owner.objectId !== app.globalData.userInfo.objectId) {
           story.view({
@@ -77,6 +84,10 @@ Page(extend({}, Toast, {
   },
 
   roundWritePopup(e) {
+    if (this.data.story.roundNum >= this.data.story.roundLimit || this.data.story.status === 2){
+      this.showZanToast('该故事回合已结束！');
+      return;
+    }
     let type = e.currentTarget.dataset.type;
     this.setData({
       roundWrite: type
@@ -110,16 +121,14 @@ Page(extend({}, Toast, {
         }
         this.showZanToast('回复回合成功！');
         this.setData({
-          roundWrite: false,
-          roundValue: ''
-        });
-        this.setData({
           page: 1,
           loadEnd: false,
           nodata: false,
+          roundWrite: false,
+          roundValue: ''
         }, () => {
           this.getStory();
-          this.getRound({ refresh: true });
+          this.getRound({ refresh: false });
         });
       });
     }, 100);
@@ -164,10 +173,6 @@ Page(extend({}, Toast, {
         this.showZanToast('取消收藏成功！');
       }
     })
-  },
-
-  storyShare() {
-    wx.showShareMenu();
   },
 
   onPullDownRefresh() {

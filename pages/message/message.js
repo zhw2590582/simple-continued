@@ -15,9 +15,6 @@ Page(extend({}, Toast, Tab, {
         id: 'round',
         title: '回合'
       }, {
-        id: 'comment',
-        title: '评论'
-      }, {
         id: 'collect',
         title: '收藏'
       }, {

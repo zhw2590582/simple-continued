@@ -4,9 +4,6 @@
   <view wx:if="{{tab.selectedId === 'round'}}">
     <component-round inner-text="round"></component-round>
   </view>
-  <view wx:if="{{tab.selectedId === 'comment'}}">
-    <component-comment inner-text="comment"></component-comment>
-  </view>
   <view wx:if="{{tab.selectedId === 'collect'}}">
     <component-collect inner-text="collect"></component-collect>
   </view>

@@ -19,10 +19,6 @@
       <view class="zan-cell__bd">我的收藏</view>
       <view class="zan-cell__ft zan-c-gray">{{userInfo.collectNum || 0}}</view>
     </view>
-    <view class="zan-cell zan-cell--access" bindtap="menuTap" data-url="/pages/statistics/statistics?type=comment">
-      <view class="zan-cell__bd">我的评论</view>
-      <view class="zan-cell__ft zan-c-gray">{{userInfo.commentNum || 0}}</view>
-    </view>
   </view>
   <view class="zan-panel about">
     <view class="zan-cell zan-cell--access">

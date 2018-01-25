@@ -85,7 +85,11 @@
 }
 
 .rounds .roundItem {
-  padding: 10px;
+
+}
+
+.rounds .roundItem .roundNum{
+  margin-left: 0;
 }
 
 .zan-popup__container {
