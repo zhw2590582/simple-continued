@@ -13,13 +13,10 @@ const profile = require('./profile.js');
 exports.creat = (args, callback) => {
   const Rounds = AV.Object.extend('Round');
   const round = new Rounds();
-  Object.keys(args).forEach(item => {
-    round.set(item, args[item]);
-  });
 
+  round.set('content', args.content);
   const owner = AV.Object.createWithoutData('_User', args.ownerId);
   round.set('owner', owner);
-
   const targetStory = AV.Object.createWithoutData('Story', args.storyId);
   round.set('targetStory', targetStory);
 

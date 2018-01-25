@@ -10,6 +10,8 @@ Page(extend({}, Toast, {
     page: 1,
     loadEnd: false,
     nodata: false,
+    roundWrite: false,
+    roundValue: '',
     story: {}
   },
 
@@ -19,7 +21,7 @@ Page(extend({}, Toast, {
     this.getRound({ refresh: false });
   },
 
-  getStory(){
+  getStory() {
     let options = util.getOptions()
     story.get({
       id: options.id
@@ -45,28 +47,106 @@ Page(extend({}, Toast, {
     });
   },
 
-  getRound(){
+  getRound() {
     let options = util.getOptions();
 
   },
 
-  storyWrite(){
-    console.log('1')
+  roundWritePopup(e) {
+    let type = e.currentTarget.dataset.type;
+    this.setData({
+      roundWrite: type
+    })
   },
 
-  storyLike() {
-    console.log('1')
+  roundWriteBlur(e) {
+    let value = e.detail.value;
+    this.setData({
+      roundValue: value
+    });
   },
 
-  storyCollect() {
-    console.log('1')
+  addRound(e) {
+    let options = util.getOptions();
+    setTimeout(() => {
+      let content = this.data.roundValue;
+      if (content == '') {
+        this.showZanToast('请输入回合文字！');
+        return;
+      }
+      round.creat({
+        content: content,
+        ownerId: app.globalData.userInfo.objectId,
+        storyId: options.id,
+      }, (err, data) => {
+        if (err) {
+          this.showZanToast('回复回合失败，请稍后再试！');
+          util.errHandle(err);
+          return;
+        }
+        this.showZanToast('回复回合成功！');
+        this.setData({
+          roundWrite: false,
+          roundValue: ''
+        });
+        this.setData({
+          page: 1,
+          loadEnd: false,
+          nodata: false,
+        }, () => {
+          this.getStory();
+          this.getRound({ refresh: true });
+        });
+      });
+    }, 100);
+  },
+
+  storyLike(e) {
+    let value = e.currentTarget.dataset.value;
+    let options = util.getOptions();
+    story.like({
+      id: options.id,
+      value: value
+    }, (err, data) => {
+      if (err) {
+        this.showZanToast('点赞失败，请稍后再试！');
+        util.errHandle(err);
+        return;
+      }
+      if (value > 0) {
+        this.showZanToast('点赞成功！');
+      } else {
+        this.showZanToast('取消点赞成功！');
+      }
+    })
+  },
+
+  storyCollect(e) {
+    let value = e.currentTarget.dataset.value;
+    let options = util.getOptions();
+    story.collect({
+      id: options.id,
+      value: value,
+      ownerId: app.globalData.userInfo.objectId
+    }, (err, data) => {
+      if (err) {
+        this.showZanToast('收藏失败，请稍后再试！');
+        util.errHandle(err);
+        return;
+      }
+      if (value > 0) {
+        this.showZanToast('收藏成功！');
+      } else {
+        this.showZanToast('取消收藏成功！');
+      }
+    })
   },
 
   storyShare() {
-    console.log('1')
+    wx.showShareMenu();
   },
 
-  onPullDownRefresh(){
+  onPullDownRefresh() {
     this.setData({
       page: 1,
       loadEnd: false,
@@ -77,7 +157,7 @@ Page(extend({}, Toast, {
     });
   },
 
-  onReachBottom(){
+  onReachBottom() {
     this.setData({
       page: this.data.page + 1,
       loadEnd: false,

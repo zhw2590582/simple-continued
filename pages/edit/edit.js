@@ -14,13 +14,10 @@ Page(extend({}, Toast, {
     rules: [],
     roundLimit: 100,
     wordLimit: 100,
-    catalogue: '',
-    catalogueIndex: 0,
+    catalogue: 0,
     catalogues: config.catalogues.map(item => item.name),
     tag: '',
-    tags: [],
-    auditMode: '1',
-    auditModes: config.auditModes
+    tags: []
   },
 
   // 数据变化 -- 光标有bug
@@ -106,14 +103,6 @@ Page(extend({}, Toast, {
     this.showZanToast('删除成功！');
   },
 
-  // 审核模式
-  _handleZanSelectChange(e) {
-    let value = e.detail.value;
-    this.setData({
-      auditMode: value
-    });
-  },
-
   // 提交表单
   submit: function (e) {
     setTimeout(() => {
@@ -135,8 +124,7 @@ Page(extend({}, Toast, {
         roundLimit: Number.parseInt(this.data.roundLimit),
         wordLimit: Number.parseInt(this.data.wordLimit),
         catalogue: this.data.catalogue,
-        tags: this.data.tags,
-        auditMode: Number.parseInt(this.data.auditMode)
+        tags: this.data.tags
       }
 
       story.updata(storyData, (err, data) => {
@@ -145,6 +133,11 @@ Page(extend({}, Toast, {
           util.errHandle(err);
         } else {
           this.showZanToast('更新成功！');
+          setTimeout(() => {
+            wx.navigateTo({
+              url: '/pages/story/story?id=' + data.objectId
+            });
+          }, 1000);
         }
       });
     }, 10);
@@ -178,8 +171,7 @@ Page(extend({}, Toast, {
             roundLimit: data.roundLimit,
             wordLimit: data.wordLimit,
             catalogue: String(data.catalogue),
-            tags: data.tags,
-            auditMode: String(data.auditMode)
+            tags: data.tags
           });
         }
       }
