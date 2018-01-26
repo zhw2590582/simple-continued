@@ -119,9 +119,69 @@ exports.view = (args, callback) => {
 
 exports.like = (args, callback) => {
   const story = AV.Object.createWithoutData('Story', args.id);
+  if (args.value > 0){
+    if (args.likeId){
+      const like = AV.Object.createWithoutData('Like', args.likeId);
+      like.set('status', 1);
+      like.save();
+    } else {
+      const Likes = AV.Object.extend('Like');
+      const like = new Likes();
+      like.set('storyId', args.id);
+      like.set('ownerId', args.ownerId);
+      const owner = AV.Object.createWithoutData('_User', args.ownerId);
+      like.set('owner', owner);
+      like.set('targetStory', story);
+      like.set('status', 1);
+      like.save();
+    }
+  } else {
+    const like = AV.Object.createWithoutData('Like', args.likeId);
+    like.set('status', 0);
+    like.save();
+  }
   story.save().then(data => {
     data.increment('likeNum', args.value);
     data.increment('popular', config.popular.like);
+    return data.save(null, {
+      fetchWhenSave: true
+    });
+  }).then(data => {
+    callback && callback(null, data.toJSON());
+  }, error => {
+    callback && callback(error);
+  });
+}
+
+/**
+ * 是否点赞
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.isLike = (args, callback) => {
+  var query = new AV.Query('Like');
+  query.contains('ownerId', args.ownerId);
+  query.contains('storyId', args.storyId);
+  query.first().then(data => {
+    callback && callback(null, data.toJSON());
+  }, error => {
+    callback && callback(error);
+  });
+}
+
+/**
+ * 故事回合
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.roundNum = (args, callback) => {
+  const story = AV.Object.createWithoutData('Story', args.id);
+  story.save().then(data => {
+    data.increment('roundNum', args.value);
     return data.save(null, {
       fetchWhenSave: true
     });
@@ -163,8 +223,34 @@ exports.share = (args, callback) => {
 
 exports.collect = (args, callback) => {
   const story = AV.Object.createWithoutData('Story', args.id);
+  if (args.value > 0){
+    if (args.collectId){
+      const collect = AV.Object.createWithoutData('Collect', args.collectId);
+      collect.set('status', 1);
+      collect.save();
+    } else {
+      const Collects = AV.Object.extend('Collect');
+      const collect = new Collects();
+      collect.set('storyId', args.id);
+      collect.set('ownerId', args.ownerId);
+      const owner = AV.Object.createWithoutData('_User', args.ownerId);
+      collect.set('owner', owner);
+      collect.set('targetStory', story);
+      collect.set('status', 1);
+      collect.save();
+    }
+  } else {
+    const collect = AV.Object.createWithoutData('Collect', args.collectId);
+    collect.set('status', 0);
+    collect.save();
+  }
   story.save().then(data => {
-    data.increment('collectNum', 1);
+    data.increment('collectNum', args.value);
+    profile.addState({
+      value: args.value,
+      id: args.ownerId,
+      type: 'collectNum'
+    });
     data.increment('popular', config.popular.collect);
     return data.save(null, {
       fetchWhenSave: true
@@ -175,6 +261,24 @@ exports.collect = (args, callback) => {
       id: args.ownerId,
       type: 'collectNum'
     });
+    callback && callback(null, data.toJSON());
+  }, error => {
+    callback && callback(error);
+  });
+}
+
+/**
+ * 是否收藏
+ *
+ * @param {Object} args
+ * @param {Function} callback
+ */
+
+exports.isCollect = (args, callback) => {
+  var query = new AV.Query('Collect');
+  query.contains('ownerId', args.ownerId);
+  query.contains('storyId', args.storyId);
+  query.first().then(data => {
     callback && callback(null, data.toJSON());
   }, error => {
     callback && callback(error);

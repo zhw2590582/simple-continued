@@ -32,7 +32,7 @@
       <template is="capsule" data="{{ leftText: '回合字数', rightText: (story.wordLimit || 0) + ' 字', color: '#acacac' }}" />
     </view>
   </view>
-  <view class="roundTip">连载至第 {{story.roundNum}} 回，还剩 {{story.roundLimit - story.roundNum}} 回</view>
+  <view class="roundTip">连载至第 {{roundsCount}} 回，还剩 {{story.roundLimit - roundsCount}} 回</view>
   <view class="rounds">
     <view class="zan-panel roundItem" wx:for="{{rounds}}" wx:key="{{item.objectId}}">
       <view class="card-header">
@@ -64,21 +64,21 @@
     <image class="story-bottom-icon" src="/assets/story-write.png" background-size="cover"></image>
     <view class="story-bottom-name">续写</view>
   </view>
-  <view class="item" bindtap="storyLike" wx:if="{{false}}" data-value="{{1}}">
-    <image class="story-bottom-icon" src="/assets/story-like.png" background-size="cover"></image>
-    <view class="story-bottom-name">点赞</view>
-  </view>
-  <view class="item" bindtap="storyLike" wx:else data-value="{{-1}}">
+  <view class="item" bindtap="storyLike" wx:if="{{like}}" data-value="{{-1}}">
     <image class="story-bottom-icon" src="/assets/story-like-selected.png" background-size="cover"></image>
     <view class="story-bottom-name">取消点赞</view>
   </view>
-  <view class="item" bindtap="storyCollect" wx:if="{{false}}" data-value="{{1}}">
-    <image class="story-bottom-icon" src="/assets/story-collect.png" background-size="cover"></image>
-    <view class="story-bottom-name">收藏</view>
+  <view class="item" bindtap="storyLike" wx:else data-value="{{1}}">
+    <image class="story-bottom-icon" src="/assets/story-like.png" background-size="cover"></image>
+    <view class="story-bottom-name">点赞</view>
   </view>
-  <view class="item" bindtap="storyCollect" wx:else data-value="{{-1}}">
+  <view class="item" bindtap="storyCollect" wx:if="{{collect}}" data-value="{{-1}}">
     <image class="story-bottom-icon" src="/assets/story-collect-selected.png" background-size="cover"></image>
     <view class="story-bottom-name">取消收藏</view>
+  </view>
+  <view class="item" bindtap="storyCollect" wx:else data-value="{{1}}">
+    <image class="story-bottom-icon" src="/assets/story-collect.png" background-size="cover"></image>
+    <view class="story-bottom-name">收藏</view>
   </view>
   <view class="item">
     <image class="story-bottom-icon" src="/assets/story-share.png" background-size="cover"></image>

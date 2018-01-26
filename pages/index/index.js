@@ -32,12 +32,7 @@ Page(extend({}, Toast, Tab, {
     });
   },
 
-  operate(e){
-    let detail = e.detail;
-    console.log(detail)
-  },
-
-  getData({ refresh }){
+  getData({ refresh }) {
     story.queryType({
       type: this.data.tab.selectedId,
       page: this.data.page
@@ -57,19 +52,15 @@ Page(extend({}, Toast, Tab, {
             items: newData,
             page: data.length === 0 ? this.data.page - 1 : this.data.page,
             nodata: this.data.page === 1 && data.length === 0,
-            loadEnd: data.length === 0
+            loadEnd: data.length <= config.pageSize
           });
         }, 500);
       }
     });
   },
 
-  onLoad(options) {
-    
-  },
-
   onShow() {
-    this.getData({ refresh: false });
+    this.getData({ refresh: true });
   },
 
   onPullDownRefresh() {
@@ -78,7 +69,7 @@ Page(extend({}, Toast, Tab, {
       loadEnd: false,
       nodata: false,
     }, () => {
-      this.getData({ refresh: true});
+      this.getData({ refresh: true });
     });
   },
 

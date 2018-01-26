@@ -15,7 +15,7 @@ Page(extend({}, Toast, {
   
   onShow() {
     let options = util.getOptions();
-    this.getData({ refresh: false });
+    this.getData({ refresh: true });
     this.setData({
       type: options.type
     }, () => {
@@ -25,8 +25,6 @@ Page(extend({}, Toast, {
         wx.setNavigationBarTitle({ title: '我的回合' });
       } else if (options.type === 'collect') {
         wx.setNavigationBarTitle({ title: '我的收藏' });
-      } else if (options.type === 'comment') {
-        wx.setNavigationBarTitle({ title: '我的评论' });
       }
     });
   },
@@ -53,7 +51,7 @@ Page(extend({}, Toast, {
             items: newData,
             page: data.length === 0 ? this.data.page - 1 : this.data.page,
             nodata: this.data.page === 1 && data.length === 0,
-            loadEnd: data.length === 0
+            loadEnd: data.length <= config.pageSize
           });
         }, 500);
       }

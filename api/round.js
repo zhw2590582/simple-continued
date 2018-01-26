@@ -22,7 +22,12 @@ exports.creat = (args, callback) => {
   round.set('targetStory', targetStory);
 
   round.save().then(data => {
+    story.roundNum({
+      id: args.storyId,
+      value: 1
+    });
     profile.addState({
+      value: 1,
       id: args.ownerId,
       type: 'roundNum'
     });
@@ -89,7 +94,9 @@ exports.get = (args, callback) => {
   query.ascending('createdAt');
   query.find().then(data => {
     let toJson = data.map(item => item.toJSON());
-    callback && callback(null, toJson);
+    query.count().then(count => {
+      callback && callback(null, toJson, count);
+    });
   }, error => {
     callback && callback(error);
   });

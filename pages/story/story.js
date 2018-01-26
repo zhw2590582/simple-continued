@@ -11,15 +11,47 @@ Page(extend({}, Toast, {
     loadEnd: false,
     nodata: false,
     roundWrite: false,
+    like: false,
+    likeId: '',
+    collect: false,
+    collectId: '',
     roundValue: '',
     story: {},
-    rounds: []
+    rounds: [],
+    roundsCount: 0
   },
 
   onShow() {
-    let options = util.getOptions();
     this.getStory();
-    this.getRound({ refresh: false });
+    this.getRound({ refresh: true });
+    this.isLike();
+    this.isCollect();
+  },
+
+  isLike(){
+    let options = util.getOptions();
+    story.isLike({
+      ownerId: app.globalData.userInfo.objectId,
+      storyId: options.id
+    }, (err, data) => {
+      this.setData({
+        likeId: data.objectId,
+        like: data.status === 1
+      })
+    });
+  },
+
+  isCollect(){
+    let options = util.getOptions();
+    story.isCollect({
+      ownerId: app.globalData.userInfo.objectId,
+      storyId: options.id
+    }, (err, data) => {
+      this.setData({
+        collectId: data.objectId,
+        collect: data && data.status === 1
+      })
+    });
   },
 
   getStory() {
@@ -62,12 +94,13 @@ Page(extend({}, Toast, {
     round.get({
       id: options.id,
       page: this.data.page
-    }, (err, data) => {
+    }, (err, data, count) => {
       if (err) {
         this.showZanToast('获取回合失败，请稍后再试！');
         util.errHandle(err);
         return;
       }
+      
       let items = this.data.rounds;
       let newData = refresh ? data : items.concat(data);
       data.forEach(item => {
@@ -77,9 +110,10 @@ Page(extend({}, Toast, {
         wx.stopPullDownRefresh();
         this.setData({
           rounds: newData,
+          roundsCount: count,
           page: data.length === 0 ? this.data.page - 1 : this.data.page,
           nodata: this.data.page === 1 && data.length === 0,
-          loadEnd: data.length === 0
+          loadEnd: data.length <= config.pageSize
         });
       }, 500);
     });
@@ -141,13 +175,18 @@ Page(extend({}, Toast, {
     let options = util.getOptions();
     story.like({
       id: options.id,
-      value: value
+      value: value,
+      ownerId: app.globalData.userInfo.objectId,
+      likeId: this.data.likeId
     }, (err, data) => {
       if (err) {
         this.showZanToast('点赞失败，请稍后再试！');
         util.errHandle(err);
         return;
       }
+      this.setData({
+        like: !this.data.like
+      });
       if (value > 0) {
         this.showZanToast('点赞成功！');
       } else {
@@ -162,13 +201,17 @@ Page(extend({}, Toast, {
     story.collect({
       id: options.id,
       value: value,
-      ownerId: app.globalData.userInfo.objectId
+      ownerId: app.globalData.userInfo.objectId,
+      collectId: this.data.collectId
     }, (err, data) => {
       if (err) {
         this.showZanToast('收藏失败，请稍后再试！');
         util.errHandle(err);
         return;
       }
+      this.setData({
+        collect: !this.data.collect
+      });
       if (value > 0) {
         this.showZanToast('收藏成功！');
       } else {
